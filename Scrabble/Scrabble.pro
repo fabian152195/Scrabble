@@ -1,6 +1,6 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2019-03-16T18:11:36
+# Project created by QtCreator 2019-03-20T08:03:25
 #
 #-------------------------------------------------
 
@@ -26,15 +26,24 @@ CONFIG += c++11
 
 SOURCES += \
         main.cpp \
-        mainmenu.cpp
+        mainmenu.cpp \
+    clickablelabel.cpp \
+    lobby.cpp
 
 HEADERS += \
-        mainmenu.h
+        mainmenu.h \
+    clickablelabel.h \
+    clicklabel.h \
+    lobby.h
 
 FORMS += \
-        mainmenu.ui
+        mainmenu.ui \
+    lobby.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    resources.qrc

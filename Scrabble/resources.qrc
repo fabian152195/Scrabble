@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/">
+        <file>../images/join_button.png</file>
+        <file>../images/make_button.png</file>
+        <file>../images/rsz_1textura-verde-turquesa-1575.jpg</file>
+        <file>../images/scrabble.png</file>
+    </qresource>
+</RCC>
