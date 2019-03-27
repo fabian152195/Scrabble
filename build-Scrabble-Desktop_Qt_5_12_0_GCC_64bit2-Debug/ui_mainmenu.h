@@ -31,7 +31,7 @@ public:
         if (MainMenu->objectName().isEmpty())
             MainMenu->setObjectName(QString::fromUtf8("MainMenu"));
         MainMenu->resize(800, 600);
-        MainMenu->setStyleSheet(QString::fromUtf8("background-image: url(:/images/rsz_1textura-verde-turquesa-1575.jpg);"));
+        MainMenu->setStyleSheet(QString::fromUtf8("#centralWidget{background-image: url(:/images/rsz_1textura-verde-turquesa-1575.jpg);}"));
         centralWidget = new QWidget(MainMenu);
         centralWidget->setObjectName(QString::fromUtf8("centralWidget"));
         btn_create = new ClickableLabel(centralWidget);

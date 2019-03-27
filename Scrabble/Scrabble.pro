@@ -28,17 +28,24 @@ SOURCES += \
         main.cpp \
         mainmenu.cpp \
     clickablelabel.cpp \
-    lobby.cpp
+    lobby.cpp \
+    game.cpp \
+    matrizgrafica.cpp \
+    casilla.cpp
 
 HEADERS += \
         mainmenu.h \
     clickablelabel.h \
     clicklabel.h \
-    lobby.h
+    lobby.h \
+    game.h \
+    matrizgrafica.h \
+    casilla.h
 
 FORMS += \
         mainmenu.ui \
-    lobby.ui
+    lobby.ui \
+    game.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -47,3 +54,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 RESOURCES += \
     resources.qrc
+
+DISTFILES +=

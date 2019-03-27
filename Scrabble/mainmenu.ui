@@ -14,7 +14,7 @@
    <string>MainMenu</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">background-image: url(:/images/rsz_1textura-verde-turquesa-1575.jpg);</string>
+   <string notr="true">#centralWidget{background-image: url(:/images/rsz_1textura-verde-turquesa-1575.jpg);}</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <widget class="ClickableLabel" name="btn_create">
@@ -89,6 +89,9 @@
    <class>ClickableLabel</class>
    <extends>QLabel</extends>
    <header>clickablelabel.h</header>
+   <slots>
+    <signal>clicked()</signal>
+   </slots>
   </customwidget>
  </customwidgets>
  <resources/>
