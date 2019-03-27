@@ -1,0 +1,22 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/malavassi/Escritorio/Scrabble/TXT_Manager.cpp
+TXT_Manager.h
+/home/malavassi/Escritorio/Scrabble/TXT_Manager.h
+iostream
+-
+fstream
+-
+
+/home/malavassi/Escritorio/Scrabble/TXT_Manager.h
+iostream
+-
+fstream
+-
+
