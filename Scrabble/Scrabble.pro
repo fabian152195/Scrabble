@@ -30,8 +30,8 @@ SOURCES += \
     clickablelabel.cpp \
     lobby.cpp \
     game.cpp \
-    matrizgrafica.cpp \
-    casilla.cpp
+    tablero.cpp \
+    listamano.cpp
 
 HEADERS += \
         mainmenu.h \
@@ -39,8 +39,8 @@ HEADERS += \
     clicklabel.h \
     lobby.h \
     game.h \
-    matrizgrafica.h \
-    casilla.h
+    tablero.h \
+    listamano.h
 
 FORMS += \
         mainmenu.ui \

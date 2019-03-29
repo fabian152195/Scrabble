@@ -1,8 +1,9 @@
 #ifndef GAME_H
 #define GAME_H
 
+#include "tablero.h"
 #include <QDialog>
-#include "casilla.h"
+#include "listamano.h"
 
 namespace Ui {
 class Game;
@@ -17,10 +18,8 @@ public:
     /**
 Tengo que crear las 15x15 casillas en cada lugar correspondiente en el builder
 */
-    Casilla *casilla_juego[15][15];
-    Casilla *casilla_mano[7];
-    explicit Game(QWidget *parent = nullptr); 
-    ~Game(){};
+    explicit Game(QWidget *parent = nullptr);
+    ~Game(){}
     Ui::Game* getUi();
 
 private slots:
@@ -28,7 +27,8 @@ private slots:
 
 private:
     Ui::Game *ui;
-
+    ListaMano *mano;
+    Tablero *tablero;
 };
 
 #endif // GAME_H

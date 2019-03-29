@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "lobby.h"
+#include "game.h"
 
 namespace Ui {
 class MainMenu;
@@ -23,6 +24,7 @@ private slots:
 private:
     Ui::MainMenu *ui;
     Lobby *lobby;
+    Game *shortcut;
 };
 
 #endif // MAINMENU_H

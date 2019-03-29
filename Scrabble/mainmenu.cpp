@@ -27,8 +27,8 @@ void MainMenu::on_btn_create_clicked()
     bool codigo_correcto = true; //Proximamente esto sera respuesta del server
     if(codigo_correcto){
         hide();
-        lobby = new Lobby(this);
-        lobby->show();
+        shortcut = new Game(this);
+        shortcut->show();
     }else{
         QMessageBox::warning(this, tr("Error"), tr("Sala llena o inexistente"));
     }
