@@ -31,7 +31,9 @@ void ListaMano::startDrag(Qt::DropActions /*supportedActions*/){
     mime->setData("image", itemData);
     drag->setMimeData(mime);  // Es necesariisimo
     drag->setPixmap(img);
-    drag->exec();
+    if(drag->exec(Qt::MoveAction) == Qt::MoveAction){
+        delete currentItem();
+    }
     /*
     Recordar que el drag transporta datos
     que va a ser necesario pasar al tablero
