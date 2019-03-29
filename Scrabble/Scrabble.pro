@@ -31,7 +31,9 @@ SOURCES += \
     lobby.cpp \
     game.cpp \
     tablero.cpp \
-    listamano.cpp
+    listamano.cpp \
+    ficha.cpp \
+    newslist.cpp
 
 HEADERS += \
         mainmenu.h \
@@ -40,7 +42,9 @@ HEADERS += \
     lobby.h \
     game.h \
     tablero.h \
-    listamano.h
+    listamano.h \
+    ficha.h \
+    newslist.h
 
 FORMS += \
         mainmenu.ui \

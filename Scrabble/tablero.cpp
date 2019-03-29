@@ -5,6 +5,7 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QPainter>
+#include "game.h"
 #include <QInputDialog>
 
 Tablero::Tablero(QWidget* parent):QWidget(parent)
@@ -17,10 +18,10 @@ Tablero::Tablero(QWidget* parent):QWidget(parent)
 void Tablero::dropEvent(QDropEvent *event){
     qDebug()<<"Yey";
     int x,y;
-    x = 5;
-    y=5;
+    x = event->pos().x()/53*53;
+    y = event->pos().y()/33*33;
 
-    if(event->mimeData()->hasFormat("image")){
+    if(event->mimeData()->hasFormat("image") && Game::disponibles[x/53][y/33]){
         qDebug()<<"Debug1";
         QString lettre, joker;
         QByteArray pieceData = event->mimeData()->data("image");
@@ -31,7 +32,7 @@ void Tablero::dropEvent(QDropEvent *event){
         QLabel *label = new QLabel(this);
         label->setPixmap(pixmap);
       //  label->setText("aa");
-        label->setGeometry(event->pos().x()/53*53.4, event->pos().y()/33*33.4, 53, 33);
+        label->setGeometry(x, y, 53, 33);
         label->show();
     }
     event->accept();
@@ -40,7 +41,11 @@ void Tablero::dropEvent(QDropEvent *event){
 
 void Tablero::dragEnterEvent(QDragEnterEvent *event)  // Se dispara cuando se esta haciendo un drag y se pasa encima del widget
 {
-    if (event->mimeData()->hasFormat("image"))
+    int x,y;
+    x = event->pos().x()/53*53;
+    y = event->pos().y()/33*33;
+
+    if (event->mimeData()->hasFormat("image") && Game::disponibles[x/53][y/33])
         event->accept();
     else
         event->ignore();
@@ -53,8 +58,11 @@ void Tablero::dragLeaveEvent(QDragLeaveEvent *event)
 
 void Tablero::dragMoveEvent(QDragMoveEvent *event)  // Se efectua cuando estoy moviendo cosas dentro del widget
 {
+    int x,y;
+    x = event->pos().x()/53*53;
+    y = event->pos().y()/33*33;
 
-    if (event->mimeData()->hasFormat("image")){  // El drag trae una pieza y no hay piezas donde tengo el mouse?
+    if (event->mimeData()->hasFormat("image") && Game::disponibles[x/53][y/33] ){  // El drag trae una pieza y no hay piezas donde tengo el mouse?
 
 
                 event->accept();

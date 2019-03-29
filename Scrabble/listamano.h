@@ -8,8 +8,9 @@ class ListaMano: public QListWidget
 {
     Q_OBJECT
 public:
-    explicit ListaMano(QWidget *parent=nullptr);
+    explicit ListaMano(QWidget *parent=nullptr); 
     void addFicha(QPixmap pixmap, QPoint, QChar letra);
+    void addFicha(QPoint, QChar letra);
 protected:
     void startDrag(Qt::DropActions supportedActions) Q_DECL_OVERRIDE;
 };

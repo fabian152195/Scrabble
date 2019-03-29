@@ -52,5 +52,9 @@ void ListaMano::addFicha(QPixmap pixmap, QPoint location,QChar lettre)
   //  pieceItem->setFlags(Qt::ItemIsEnabled | Qt::ItemIsSelectable | Qt::ItemIsDragEnabled);
 
     //main_m->append(lettre);
+}
 
+void ListaMano::addFicha(QPoint location, QChar lettre){
+    QPixmap pixmap = QPixmap(":/images/"+QString(lettre)+".png");
+    addFicha(pixmap, location, lettre);
 }
