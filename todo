@@ -1,15 +1,1 @@
-Estoy terminando la interfaz grafica del juego:
-  - Problema: Necesito borrar las fichas nuevas del tablero cada vez que se 
-    denega una palabra.
-  - Posible solucion: Existe una lista de fichas nuevas, actualmente esta
-    utilizandose una lista de C++ para manejarlas, voy a implementar la 
-    lista de Chino para que cada vez que necesite agregar una ficha nueva
-    se pinte el espacio del cuadrado de la ficha, por esto mismo, ficha 
-    hereda de cuadrado.
-        - Ahora, el posible problema es a la hora de hacer el drop
-          tengo que hacer que el drop no agregue un nuevo label, si no que
-	  directamente agregue una nueva ficha a la lista nuevas, de esta
-	  manera se pinta el cuadrado que representa la nueva ficha
-  - Problema: Se agrega una ficha aunque ya haya otra en posicion
-  - Crear un array booleano de lugares disponibles, si donde 
-    quiero poner la ficha es un lugar disponible, lo permite, si no, no.
+

@@ -33,7 +33,7 @@ SOURCES += \
     tablero.cpp \
     listamano.cpp \
     ficha.cpp \
-    newslist.cpp
+    list.cpp
 
 HEADERS += \
         mainmenu.h \
@@ -44,7 +44,7 @@ HEADERS += \
     tablero.h \
     listamano.h \
     ficha.h \
-    newslist.h
+    list.h
 
 FORMS += \
         mainmenu.ui \

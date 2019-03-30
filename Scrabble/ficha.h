@@ -2,16 +2,21 @@
 #define FICHA_H
 #include <QRect>
 #include <QPoint>
+#include <QPixmap>
 
 class Ficha : public QRect
 {
 public:
-    Ficha(char letra, QPoint pos);
-    char getLetra();
+    Ficha(QChar letra, QPoint pos);
+    Ficha(QString letra, QPoint pos);
+    QString getLetra();
     QPoint getPos();
+    Ficha *getNext();
+    QPixmap getPixmap();
 private:
-    char letra;
+    QString letra;
     QPoint pos;
+    QPixmap pixmap;
 };
 
 #endif // FICHA_H

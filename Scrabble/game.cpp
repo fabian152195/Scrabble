@@ -5,6 +5,8 @@
 #include "ui_game.h"
 #include <QDebug>
 
+List Game::nuevas = List();
+
 Game::Game(QWidget *parent):QDialog(parent), ui(new Ui::Game){
     ui->setupUi(this);
 
@@ -16,11 +18,12 @@ Game::Game(QWidget *parent):QDialog(parent), ui(new Ui::Game){
     // Mano
     mano = new ListaMano(this);
     mano->setGeometry(250,530,321,50);
-    mano->addFicha(QPixmap(":/images/B.png"), QPoint(0,0), QChar('A'));
-
+    mano->addFicha(QPoint(0,0), QChar(
+                       'A'));
+    mano->addFicha(QPoint(0,0), "B");
     //Tablero
-   tablero = new Tablero(this);
-   tablero->setGeometry(0,0,800,500);
+    tablero = new Tablero(this);
+    tablero->setGeometry(0,0,800,500);
 
 
 
@@ -49,17 +52,24 @@ void Game::on_label_2_clicked(){
    }else{
        int question = QMessageBox::critical(this, "Palabra invalida", "La palabra que ingreso no esta registrada "
                                                        "¿desea validarla con un experto?"
-                             , QMessageBox::Retry, QMessageBox::Abort);
+                             , QMessageBox::Ok, QMessageBox::Abort);
        if(question == 524288){
            if(sendServer("palabraaca")){
                qDebug() << "Add puntos";
                clearNuevas();
            }else{
                //Rechazo
-
+               nuevas.clear(tablero);
+               for(Ficha ficha:nuevas){
+                   mano->addFicha(QPoint(0,0),ficha.getLetra());
+               }
            }
        }else{
            //rechazo
+           for(Ficha ficha:nuevas){
+                   mano->addFicha(QPoint(0,0),ficha.getLetra());
+           }
+           nuevas.clear(tablero);
        }
        // 262144: Abort, 524288: Retry
    }
@@ -74,22 +84,15 @@ void Game::returnNuevas(){
 
 // BIG PROBLEM
 void Game::addNuevas(Ficha item){
-   nuevas.push_back(item);
-   int arr[15][15];
-   *(*(arr+1)+1) = 1;
-   *(*(Game::getDisponibles()+item.getPos().x()/53)+item.getPos().y()/33) = false;
-}
-
-bool *Game::getDisponibles(){
-    return *disponibles;
+   Game::nuevas.push_back(item, tablero);
 }
 
 void Game::clearNuevas(){
-    nuevas.clear();
+    Game::nuevas.clear(tablero);
 }
 
 void Game::undoNuevas(){
-    nuevas.pop_back();
+    Game::nuevas.pop_back(tablero);
 }
 
 bool Game::sendServer(){

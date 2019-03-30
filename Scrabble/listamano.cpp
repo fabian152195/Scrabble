@@ -41,7 +41,7 @@ void ListaMano::startDrag(Qt::DropActions /*supportedActions*/){
     */
 }
 
-void ListaMano::addFicha(QPixmap pixmap, QPoint location,QChar lettre)
+void ListaMano::addFicha(QPixmap pixmap, QPoint location,QString lettre)
 {
     QListWidgetItem *pieceItem = new QListWidgetItem(this);
     pieceItem->setText(lettre);
@@ -54,7 +54,7 @@ void ListaMano::addFicha(QPixmap pixmap, QPoint location,QChar lettre)
     //main_m->append(lettre);
 }
 
-void ListaMano::addFicha(QPoint location, QChar lettre){
+void ListaMano::addFicha(QPoint location, QString lettre){
     QPixmap pixmap = QPixmap(":/images/"+QString(lettre)+".png");
     addFicha(pixmap, location, lettre);
 }
