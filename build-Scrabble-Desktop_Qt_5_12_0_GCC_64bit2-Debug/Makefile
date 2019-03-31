@@ -60,7 +60,8 @@ SOURCES       = ../Scrabble/main.cpp \
 		../Scrabble/ficha.cpp \
 		../Scrabble/list.cpp \
 		../Scrabble/jsonparser.cpp \
-		../Scrabble/fichatosend.cpp qrc_resources.cpp \
+		../Scrabble/fichatosend.cpp \
+		../Scrabble/collector.cpp qrc_resources.cpp \
 		moc_mainmenu.cpp \
 		moc_clickablelabel.cpp \
 		moc_lobby.cpp \
@@ -78,6 +79,7 @@ OBJECTS       = main.o \
 		list.o \
 		jsonparser.o \
 		fichatosend.o \
+		collector.o \
 		qrc_resources.o \
 		moc_mainmenu.o \
 		moc_clickablelabel.o \
@@ -268,7 +270,8 @@ DIST          = ../../../../Qt/5.12.0/gcc_64/mkspecs/features/spec_pre.prf \
 		../Scrabble/ficha.h \
 		../Scrabble/list.h \
 		../Scrabble/jsonparser.h \
-		../Scrabble/fichatosend.h ../Scrabble/main.cpp \
+		../Scrabble/fichatosend.h \
+		../Scrabble/collector.h ../Scrabble/main.cpp \
 		../Scrabble/mainmenu.cpp \
 		../Scrabble/clickablelabel.cpp \
 		../Scrabble/lobby.cpp \
@@ -278,7 +281,8 @@ DIST          = ../../../../Qt/5.12.0/gcc_64/mkspecs/features/spec_pre.prf \
 		../Scrabble/ficha.cpp \
 		../Scrabble/list.cpp \
 		../Scrabble/jsonparser.cpp \
-		../Scrabble/fichatosend.cpp
+		../Scrabble/fichatosend.cpp \
+		../Scrabble/collector.cpp
 QMAKE_TARGET  = Scrabble
 DESTDIR       = 
 TARGET        = Scrabble
@@ -663,8 +667,8 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents ../Scrabble/resources.qrc $(DISTDIR)/
 	$(COPY_FILE) --parents ../../../../Qt/5.12.0/gcc_64/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents ../Scrabble/mainmenu.h ../Scrabble/clickablelabel.h ../Scrabble/clicklabel.h ../Scrabble/lobby.h ../Scrabble/game.h ../Scrabble/tablero.h ../Scrabble/listamano.h ../Scrabble/ficha.h ../Scrabble/list.h ../Scrabble/jsonparser.h ../Scrabble/fichatosend.h $(DISTDIR)/
-	$(COPY_FILE) --parents ../Scrabble/main.cpp ../Scrabble/mainmenu.cpp ../Scrabble/clickablelabel.cpp ../Scrabble/lobby.cpp ../Scrabble/game.cpp ../Scrabble/tablero.cpp ../Scrabble/listamano.cpp ../Scrabble/ficha.cpp ../Scrabble/list.cpp ../Scrabble/jsonparser.cpp ../Scrabble/fichatosend.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ../Scrabble/mainmenu.h ../Scrabble/clickablelabel.h ../Scrabble/clicklabel.h ../Scrabble/lobby.h ../Scrabble/game.h ../Scrabble/tablero.h ../Scrabble/listamano.h ../Scrabble/ficha.h ../Scrabble/list.h ../Scrabble/jsonparser.h ../Scrabble/fichatosend.h ../Scrabble/collector.h $(DISTDIR)/
+	$(COPY_FILE) --parents ../Scrabble/main.cpp ../Scrabble/mainmenu.cpp ../Scrabble/clickablelabel.cpp ../Scrabble/lobby.cpp ../Scrabble/game.cpp ../Scrabble/tablero.cpp ../Scrabble/listamano.cpp ../Scrabble/ficha.cpp ../Scrabble/list.cpp ../Scrabble/jsonparser.cpp ../Scrabble/fichatosend.cpp ../Scrabble/collector.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ../Scrabble/mainmenu.ui ../Scrabble/lobby.ui ../Scrabble/game.ui $(DISTDIR)/
 
 
@@ -1920,7 +1924,8 @@ main.o: ../Scrabble/main.cpp ../Scrabble/mainmenu.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtGui/qinputmethod.h \
 		../Scrabble/jsonparser.h \
 		../Scrabble/fichatosend.h \
-		../../../../Qt/5.12.0/gcc_64/include/QtCore/QDebug
+		../../../../Qt/5.12.0/gcc_64/include/QtCore/QtDebug \
+		../Scrabble/collector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Scrabble/main.cpp
 
 mainmenu.o: ../Scrabble/mainmenu.cpp ../Scrabble/mainmenu.h \
@@ -3103,6 +3108,9 @@ jsonparser.o: ../Scrabble/jsonparser.cpp ../Scrabble/jsonparser.h \
 
 fichatosend.o: ../Scrabble/fichatosend.cpp ../Scrabble/fichatosend.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o fichatosend.o ../Scrabble/fichatosend.cpp
+
+collector.o: ../Scrabble/collector.cpp ../Scrabble/collector.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o collector.o ../Scrabble/collector.cpp
 
 qrc_resources.o: qrc_resources.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o qrc_resources.o qrc_resources.cpp

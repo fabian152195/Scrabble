@@ -35,7 +35,8 @@ SOURCES += \
     ficha.cpp \
     list.cpp \
     jsonparser.cpp \
-    fichatosend.cpp
+    fichatosend.cpp \
+    collector.cpp
 
 HEADERS += \
         mainmenu.h \
@@ -48,7 +49,8 @@ HEADERS += \
     ficha.h \
     list.h \
     jsonparser.h \
-    fichatosend.h
+    fichatosend.h \
+    collector.h
 
 FORMS += \
         mainmenu.ui \
