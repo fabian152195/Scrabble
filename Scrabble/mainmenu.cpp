@@ -17,6 +17,22 @@ MainMenu::~MainMenu()
 }
 
 void MainMenu::on_btn_create_clicked()
+{ 
+    // Le digo al servidor que hay un nuevo lobby y le pido el numero de sala
+        hide();
+        //shortcut = new Game(this);
+        //shortcut->show();
+        lobby = new Lobby(true,0, this);
+        lobby->show();
+        }
+
+
+
+
+
+
+
+void MainMenu::on_btn_join_clicked()
 {
     //hide();
     QInputDialog *inputD = new QInputDialog();
@@ -29,16 +45,11 @@ void MainMenu::on_btn_create_clicked()
         hide();
         //shortcut = new Game(this);
         //shortcut->show();
-        lobby = new Lobby(this);
+        lobby = new Lobby(false,room_code,
+                          this);
         lobby->show();
+
     }else{
         QMessageBox::warning(this, tr("Error"), tr("Sala llena o inexistente"));
     }
-
 }
-
-
-
-
-
-

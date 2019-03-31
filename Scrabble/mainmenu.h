@@ -21,6 +21,8 @@ private slots:
 
     void on_btn_create_clicked();
 
+    void on_btn_join_clicked();
+
 private:
     Ui::MainMenu *ui;
     Lobby *lobby;

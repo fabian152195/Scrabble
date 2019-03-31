@@ -7,13 +7,16 @@
 
 List Game::nuevas = List();
 
-Game::Game(QWidget *parent):QDialog(parent), ui(new Ui::Game){
+Game::Game(QString name,QImage my_image,QWidget *parent):QDialog(parent), ui(new Ui::Game){
     ui->setupUi(this);
 
     /* Setup: puesta en punto con el server
      * Paseme mi jugador, sus puntos y la cantidad de fichas que hay
 */
     update();
+
+    ui->player_name->setText(name);
+    ui->player_image->setPixmap(QPixmap::fromImage(my_image.scaled(70,50)));
 
     // Mano
     mano = new ListaMano(this);

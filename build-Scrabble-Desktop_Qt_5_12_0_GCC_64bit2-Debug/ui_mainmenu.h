@@ -38,7 +38,7 @@ public:
         btn_create->setObjectName(QString::fromUtf8("btn_create"));
         btn_create->setGeometry(QRect(260, 280, 300, 91));
         btn_create->setMaximumSize(QSize(16777215, 16777215));
-        btn_create->setStyleSheet(QString::fromUtf8("background-image: url(:/images/join_button.png);"));
+        btn_create->setStyleSheet(QString::fromUtf8("background-image: url(:/images/make_button.png);"));
         label = new QLabel(centralWidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setGeometry(QRect(120, 50, 600, 150));
@@ -48,7 +48,7 @@ public:
         btn_join->setEnabled(true);
         btn_join->setGeometry(QRect(260, 400, 300, 81));
         btn_join->setMaximumSize(QSize(13223132, 13123213));
-        btn_join->setStyleSheet(QString::fromUtf8("background-image: url(:/images/make_button.png);\n"
+        btn_join->setStyleSheet(QString::fromUtf8("background-image: url(:/images/join_button.png);\n"
 ""));
         MainMenu->setCentralWidget(centralWidget);
 

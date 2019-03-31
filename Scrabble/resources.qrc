@@ -32,5 +32,6 @@
         <file>../images/N.png</file>
         <file>../images/lobby.png</file>
         <file>../images/hand_grid.png</file>
+        <file>../images/default_user.png</file>
     </qresource>
 </RCC>

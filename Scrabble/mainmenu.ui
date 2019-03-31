@@ -33,7 +33,7 @@
      </size>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/images/join_button.png);</string>
+     <string notr="true">background-image: url(:/images/make_button.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -74,7 +74,7 @@
      </size>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-image: url(:/images/make_button.png);
+     <string notr="true">background-image: url(:/images/join_button.png);
 </string>
     </property>
     <property name="text">

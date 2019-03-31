@@ -23,7 +23,7 @@ public:
     /**
      * Tengo que crear las 15x15 casillas en cada lugar correspondiente en el builder
     */
-    explicit Game(QWidget *parent = nullptr);
+    explicit Game(QString name,QImage my_image,QWidget *parent = nullptr);
     ~Game(){}
     Ui::Game* getUi();
     /**
