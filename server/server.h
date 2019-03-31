@@ -19,11 +19,20 @@
 #include <netinet/in.h>
 #include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros
 #include <cstdlib>
+#include "rapidjson/pointer.h"
+#include "rapidjson/document.h"
+#include "rapidjson/writer.h"
+#include "rapidjson/stringbuffer.h"
+#include <iostream>
+#include "Mensaje.h"
+
+
 
 #define TRUE   1
 #define FALSE  0
 
 #define PORT 8080
+
 
 class server {
 public:
@@ -34,6 +43,7 @@ public:
     int addrlen = sizeof(address);
     char buffer[1024] = {0};
     char *hello;
+    Mensaje *mensaje;
 
     server();
     int run ();
