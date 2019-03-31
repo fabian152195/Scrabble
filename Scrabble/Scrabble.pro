@@ -34,7 +34,8 @@ SOURCES += \
     listamano.cpp \
     ficha.cpp \
     list.cpp \
-    jsonparser.cpp
+    jsonparser.cpp \
+    fichatosend.cpp
 
 HEADERS += \
         mainmenu.h \
@@ -46,7 +47,8 @@ HEADERS += \
     listamano.h \
     ficha.h \
     list.h \
-    jsonparser.h
+    jsonparser.h \
+    fichatosend.h
 
 FORMS += \
         mainmenu.ui \
