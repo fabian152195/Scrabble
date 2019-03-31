@@ -2,12 +2,16 @@
 // Created by fabian on 27/03/19.
 //
 #include "server.h"
-using namespace std;
-server::server() {
 
+
+
+using namespace std;
+using namespace rapidjson;
+
+server::server() {
     opt=1;
     hello = (char*) "Hello from client";
-
+    mensaje = new Mensaje("Hellou from client");
 }
 
 int server::run() {
