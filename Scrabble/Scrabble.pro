@@ -33,7 +33,8 @@ SOURCES += \
     tablero.cpp \
     listamano.cpp \
     ficha.cpp \
-    list.cpp
+    list.cpp \
+    jsonparser.cpp
 
 HEADERS += \
         mainmenu.h \
@@ -44,7 +45,8 @@ HEADERS += \
     tablero.h \
     listamano.h \
     ficha.h \
-    list.h
+    list.h \
+    jsonparser.h
 
 FORMS += \
         mainmenu.ui \
