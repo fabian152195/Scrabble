@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "lobby.h"
 #include "game.h"
+#include "collector.h"
 
 namespace Ui {
 class MainMenu;
@@ -16,6 +17,7 @@ class MainMenu : public QMainWindow
 public:
     explicit MainMenu(QWidget *parent = nullptr);
     ~MainMenu();
+    static Collector collector;
 
 private slots:
 

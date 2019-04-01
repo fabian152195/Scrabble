@@ -10,7 +10,7 @@
 
 int main(int argc, char *argv[])
 {
-   /* QApplication a(argc, argv);
+    QApplication a(argc, argv);
     MainMenu w;
     w.show();
     Ficha ficha1 = Ficha("A",QPoint(1,1));
@@ -21,20 +21,7 @@ int main(int argc, char *argv[])
 
     list<FichaToSend> probe = JsonParser::toListFicha("[{letra:\"A\",x:255,y:255},{letra:\"B\",x:1,y:1}]");
 
-    qDebug() << probe.size();*/
+    qDebug() << probe.size();
 
-    Collector collector = Collector();
-
-    int *p = reinterpret_cast<int*>(collector.New());
-    *p =1;
-
-    qDebug() << p;
-
-    collector.Delete(p);
-
-    int *q = reinterpret_cast<int*>(collector.New());
-
-    qDebug() << q;
-
-    return /*a.exec()*/ 0;
+    return a.exec();
 }

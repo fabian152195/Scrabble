@@ -24,7 +24,7 @@ public:
      * Tengo que crear las 15x15 casillas en cada lugar correspondiente en el builder
     */
     explicit Game(QString name,QImage my_image,QWidget *parent = nullptr);
-    ~Game(){}
+    ~Game();
     Ui::Game* getUi();
     /**
       Agrega fichas a la lista Nuevas

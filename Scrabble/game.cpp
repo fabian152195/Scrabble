@@ -32,6 +32,12 @@ Game::Game(QString name,QImage my_image,QWidget *parent):QDialog(parent), ui(new
 
 }
 
+Game::~Game(){
+    delete ui;
+    delete tablero;
+    delete mano;
+}
+
 
 void Game::update(){
     //Server shit

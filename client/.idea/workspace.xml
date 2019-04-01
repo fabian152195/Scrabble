@@ -12,10 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5a87afe-0613-474d-a75c-e746bc208cdd" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../Scrabble/collector.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../Scrabble/collector.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Scrabble/Scrabble.pro" beforeDir="false" afterPath="$PROJECT_DIR$/../Scrabble/Scrabble.pro" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../server/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../server/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />

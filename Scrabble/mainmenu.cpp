@@ -4,6 +4,8 @@
 #include <iostream>
 #include <QMessageBox>
 
+Collector MainMenu::collector = Collector();
+
 MainMenu::MainMenu(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainMenu)
@@ -14,6 +16,8 @@ MainMenu::MainMenu(QWidget *parent) :
 MainMenu::~MainMenu()
 {
     delete ui;
+    delete lobby;
+    delete shortcut;
 }
 
 void MainMenu::on_btn_create_clicked()

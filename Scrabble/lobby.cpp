@@ -26,6 +26,7 @@ Lobby::Lobby(bool newLobby,int room_number, QWidget *parent) :
 Lobby::~Lobby()
 {
     delete ui;
+    delete game;
 }
 
 void Lobby::on_pushButton_clicked()
