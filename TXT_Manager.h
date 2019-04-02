@@ -2,9 +2,6 @@
 // Created by malavassi on 24/03/19.
 //
 
-#ifndef JAJAJA_HOLA_H
-#define JAJAJA_HOLA_H
-
 
 #include <iostream>
 #include <fstream>
@@ -21,4 +18,3 @@ int verif_palabra(string palabra);
 bool busqueda(string cadena);
 
 };
-#endif //JAJAJA_HOLA_H

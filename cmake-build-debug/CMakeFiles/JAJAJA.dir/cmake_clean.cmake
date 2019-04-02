@@ -1,6 +1,5 @@
 file(REMOVE_RECURSE
   "CMakeFiles/JAJAJA.dir/main.cpp.o"
-  "CMakeFiles/JAJAJA.dir/TXT_Manager.cpp.o"
   "JAJAJA.pdb"
   "JAJAJA"
 )

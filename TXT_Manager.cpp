@@ -6,8 +6,9 @@
 #include "TXT_Manager.h"
 #include <iostream>
 #include <fstream>
-using namespace std;
+#include <gtest/gtest.h>
 
+using namespace std;
 TXT_Manager::TXT_Manager(){
 
 }
@@ -16,12 +17,13 @@ int TXT_Manager::puntaje_palabra(string word) {
     cout<<"Sacando el puntaje de: "<<word<<"\n";
     for(int i=0; i<word.length();i++){
         acumulador_palabra += asignarptos(word[i]);
-        cout << "palabra[i]: "<<word[i] << "\n" <<"i:"<<i << "\n";
+        //cout << "palabra[i]: "<<word[i] << "\n" <<"i:"<<i << "\n"; // esta linea imprime elemento por elemento del que se saca puntaje
 
     }
     cout << "El valor de la palabra es: "<<acumulador_palabra <<" puntos" << "\n";
     return acumulador_palabra;
 }
+
 int TXT_Manager::asignarptos(char letra) {
     switch(letra){
         case 'A':
@@ -101,7 +103,7 @@ bool TXT_Manager::busqueda(string cadena) {
     string *a = new string();
     while(!fe.eof()){
         fe >> *a;
-        cout << *a << "\n";
+        //cout << *a << "\n"; // esta linea imprime todo el diccionario hasta que encuentra la palabra
         if(*a==cadena) {
             cout << "Coincidencia:" << *a << "\n";
             fe.close();
@@ -116,3 +118,37 @@ bool TXT_Manager::busqueda(string cadena) {
     return false;
 }
 
+//TESTS
+struct TXT_Manager_TEST : public testing::Test{
+   TXT_Manager *test;
+   void SetUp(){test = new TXT_Manager();}
+   void TearDown(){delete test;}
+};
+
+TEST_F(TXT_Manager_TEST, puntaje_palabra){
+//Arrange //aqui no se usa por ser fixture
+//Act
+//Assert
+ASSERT_EQ(test->puntaje_palabra("YUXTAPOSICION"),27);
+}
+
+TEST_F(TXT_Manager_TEST, asignar_ptos){
+    //Arrange
+    //Act
+    //Assert
+    ASSERT_EQ(test->asignarptos('A'),1);
+}
+
+TEST_F(TXT_Manager_TEST, busqueda){
+    //Arrange
+    //Act
+    //Assert
+    ASSERT_EQ(test->busqueda("AVE"), true);
+}
+TEST_F(TXT_Manager_TEST, verif_palabra){
+    //Arrange
+    //Act
+    //Assert
+    ASSERT_EQ(test->verif_palabra("HORSE"),0);
+}
+//TESTS//

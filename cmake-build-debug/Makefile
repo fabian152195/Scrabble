@@ -39,10 +39,10 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /snap/clion/61/bin/cmake/linux/bin/cmake
+CMAKE_COMMAND = /snap/clion/67/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
-RM = /snap/clion/61/bin/cmake/linux/bin/cmake -E remove -f
+RM = /snap/clion/67/bin/cmake/linux/bin/cmake -E remove -f
 
 # Escaping for special characters.
 EQUALS = =
@@ -56,10 +56,33 @@ CMAKE_BINARY_DIR = /home/malavassi/Escritorio/Scrabble/cmake-build-debug
 #=============================================================================
 # Targets provided globally by CMake.
 
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/snap/clion/67/bin/cmake/linux/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
+	/snap/clion/67/bin/cmake/linux/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/snap/clion/67/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/snap/clion/61/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/snap/clion/67/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -67,16 +90,39 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/snap/clion/61/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
 
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
 
-.PHONY : edit_cache/fast
+.PHONY : list_install_components/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/snap/clion/67/bin/cmake/linux/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
+	/snap/clion/67/bin/cmake/linux/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/snap/clion/67/bin/cmake/linux/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/snap/clion/67/bin/cmake/linux/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -111,17 +157,96 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named JAJAJA
+# Target rules for targets named Scrabble
 
 # Build rule for target.
-JAJAJA: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 JAJAJA
-.PHONY : JAJAJA
+Scrabble: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Scrabble
+.PHONY : Scrabble
 
 # fast build rule for target.
-JAJAJA/fast:
-	$(MAKE) -f CMakeFiles/JAJAJA.dir/build.make CMakeFiles/JAJAJA.dir/build
-.PHONY : JAJAJA/fast
+Scrabble/fast:
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/build
+.PHONY : Scrabble/fast
+
+#=============================================================================
+# Target rules for targets named gmock_main
+
+# Build rule for target.
+gmock_main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gmock_main
+.PHONY : gmock_main
+
+# fast build rule for target.
+gmock_main/fast:
+	$(MAKE) -f lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/build.make lib/googletest-master/googlemock/CMakeFiles/gmock_main.dir/build
+.PHONY : gmock_main/fast
+
+#=============================================================================
+# Target rules for targets named gmock
+
+# Build rule for target.
+gmock: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gmock
+.PHONY : gmock
+
+# fast build rule for target.
+gmock/fast:
+	$(MAKE) -f lib/googletest-master/googlemock/CMakeFiles/gmock.dir/build.make lib/googletest-master/googlemock/CMakeFiles/gmock.dir/build
+.PHONY : gmock/fast
+
+#=============================================================================
+# Target rules for targets named gtest_main
+
+# Build rule for target.
+gtest_main: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gtest_main
+.PHONY : gtest_main
+
+# fast build rule for target.
+gtest_main/fast:
+	$(MAKE) -f lib/googletest-master/googlemock/gtest/CMakeFiles/gtest_main.dir/build.make lib/googletest-master/googlemock/gtest/CMakeFiles/gtest_main.dir/build
+.PHONY : gtest_main/fast
+
+#=============================================================================
+# Target rules for targets named gtest
+
+# Build rule for target.
+gtest: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gtest
+.PHONY : gtest
+
+# fast build rule for target.
+gtest/fast:
+	$(MAKE) -f lib/googletest-master/googlemock/gtest/CMakeFiles/gtest.dir/build.make lib/googletest-master/googlemock/gtest/CMakeFiles/gtest.dir/build
+.PHONY : gtest/fast
+
+Ficha.o: Ficha.cpp.o
+
+.PHONY : Ficha.o
+
+# target to build an object file
+Ficha.cpp.o:
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Ficha.cpp.o
+.PHONY : Ficha.cpp.o
+
+Ficha.i: Ficha.cpp.i
+
+.PHONY : Ficha.i
+
+# target to preprocess a source file
+Ficha.cpp.i:
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Ficha.cpp.i
+.PHONY : Ficha.cpp.i
+
+Ficha.s: Ficha.cpp.s
+
+.PHONY : Ficha.s
+
+# target to generate assembly for a file
+Ficha.cpp.s:
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Ficha.cpp.s
+.PHONY : Ficha.cpp.s
 
 TXT_Manager.o: TXT_Manager.cpp.o
 
@@ -129,7 +254,7 @@ TXT_Manager.o: TXT_Manager.cpp.o
 
 # target to build an object file
 TXT_Manager.cpp.o:
-	$(MAKE) -f CMakeFiles/JAJAJA.dir/build.make CMakeFiles/JAJAJA.dir/TXT_Manager.cpp.o
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/TXT_Manager.cpp.o
 .PHONY : TXT_Manager.cpp.o
 
 TXT_Manager.i: TXT_Manager.cpp.i
@@ -138,7 +263,7 @@ TXT_Manager.i: TXT_Manager.cpp.i
 
 # target to preprocess a source file
 TXT_Manager.cpp.i:
-	$(MAKE) -f CMakeFiles/JAJAJA.dir/build.make CMakeFiles/JAJAJA.dir/TXT_Manager.cpp.i
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/TXT_Manager.cpp.i
 .PHONY : TXT_Manager.cpp.i
 
 TXT_Manager.s: TXT_Manager.cpp.s
@@ -147,8 +272,35 @@ TXT_Manager.s: TXT_Manager.cpp.s
 
 # target to generate assembly for a file
 TXT_Manager.cpp.s:
-	$(MAKE) -f CMakeFiles/JAJAJA.dir/build.make CMakeFiles/JAJAJA.dir/TXT_Manager.cpp.s
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/TXT_Manager.cpp.s
 .PHONY : TXT_Manager.cpp.s
+
+Tests/test.o: Tests/test.cpp.o
+
+.PHONY : Tests/test.o
+
+# target to build an object file
+Tests/test.cpp.o:
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Tests/test.cpp.o
+.PHONY : Tests/test.cpp.o
+
+Tests/test.i: Tests/test.cpp.i
+
+.PHONY : Tests/test.i
+
+# target to preprocess a source file
+Tests/test.cpp.i:
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Tests/test.cpp.i
+.PHONY : Tests/test.cpp.i
+
+Tests/test.s: Tests/test.cpp.s
+
+.PHONY : Tests/test.s
+
+# target to generate assembly for a file
+Tests/test.cpp.s:
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Tests/test.cpp.s
+.PHONY : Tests/test.cpp.s
 
 main.o: main.cpp.o
 
@@ -156,7 +308,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/JAJAJA.dir/build.make CMakeFiles/JAJAJA.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -165,7 +317,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/JAJAJA.dir/build.make CMakeFiles/JAJAJA.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -174,7 +326,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/JAJAJA.dir/build.make CMakeFiles/JAJAJA.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -183,12 +335,26 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
-	@echo "... JAJAJA"
+	@echo "... install/strip"
 	@echo "... edit_cache"
+	@echo "... Scrabble"
+	@echo "... rebuild_cache"
+	@echo "... list_install_components"
+	@echo "... install/local"
+	@echo "... install"
+	@echo "... gmock_main"
+	@echo "... gmock"
+	@echo "... gtest_main"
+	@echo "... gtest"
+	@echo "... Ficha.o"
+	@echo "... Ficha.i"
+	@echo "... Ficha.s"
 	@echo "... TXT_Manager.o"
 	@echo "... TXT_Manager.i"
 	@echo "... TXT_Manager.s"
+	@echo "... Tests/test.o"
+	@echo "... Tests/test.i"
+	@echo "... Tests/test.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"

@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/JAJAJA.dir/main.cpp.o CMakeFiles/JAJAJA.dir/TXT_Manager.cpp.o  -o JAJAJA 
+/usr/bin/c++  -g   CMakeFiles/JAJAJA.dir/main.cpp.o  -o JAJAJA lib/libgtestd.a lib/libgtest_maind.a lib/libgtestd.a -lpthread 

@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 3.13)
-project(JAJAJA)
+project(Scrabble)
 
 set(CMAKE_CXX_STANDARD 14)
-
-add_executable(JAJAJA main.cpp TXT_Manager.cpp TXT_Manager.h)
+add_subdirectory(lib/googletest-master)
+include_directories(lib/googletest-master/googletest/include)
+include_directories(lib/googletest-master/googlemock/include)
+set(SOURCE_FILES main.cpp TXT_Manager.cpp TXT_Manager.h Tests/ClassName.h Tests/test.cpp Ficha.h Ficha.cpp)
+add_executable(Scrabble ${SOURCE_FILES} Tests/ClassName.h Tests/test.cpp)
+target_link_libraries(Scrabble gtest gtest_main)
