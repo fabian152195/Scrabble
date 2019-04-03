@@ -18,13 +18,12 @@ int server::run() {
     //Example code: A simple server side code, which echos back the received message.
 //Handle multiple socket connections with select and fd_set on Linux
         int opt = TRUE;
-        int master_socket, addrlen, new_socket, client_socket[30],
+        int master_socket, addrlen, new_socket, client_socket[5],
                 max_clients = 5, activity, i, valread, sd;
         int max_sd;
         struct sockaddr_in address;
         int condicion;
         char buffer[1025];  //data buffer of 1K
-
         //set of socket descriptors
         fd_set readfds;
 
@@ -57,7 +56,7 @@ int server::run() {
 
         cout << inet_ntoa(address.sin_addr) << endl;
 
-    //bind the socket to localhost port 8888
+    //bind the socket to localhost port 8080
         if (bind(master_socket, (struct sockaddr *) &address, sizeof(address)) < 0) {
             perror("bind failed");
             exit(EXIT_FAILURE);
@@ -118,7 +117,7 @@ int server::run() {
                 printf("New connection, socket fd is %d , ip is : %s , port : %d\n" , new_socket , inet_ntoa(address.sin_addr) , ntohs(address.sin_port));
 
                 //send new connection greeting message
-                if (send(new_socket, message, strlen(message), 0) != strlen(message)) {
+                if (sendToClient(new_socket, message) != strlen(message)) {
                     perror("send");
                 }
 
@@ -146,19 +145,16 @@ int server::run() {
                     //incoming message
                     cout << "valreadAF: " << valread << endl;
 
-                    if ((valread = read(sd, buffer, 1024)) == 0) {
+                    if ((readFromClient(sd,buffer) == 0)) {
                         //Somebody disconnected , get his details and print
                         cout << "valread M: " << valread << endl;
                         getpeername(sd, (struct sockaddr *) &address, \
                         (socklen_t *) &addrlen);
                         printf("Host disconnected , ip %s , port %d \n",
                                inet_ntoa(address.sin_addr), ntohs(address.sin_port));
-
-
-
                         //Close the socket and mark as 0 in list for reuse
                         close(sd);
-                        //client_socket[i] = 0;
+                        client_socket[i] = 0;
                     }
                         //Echo back the message that came in
                     else {
@@ -167,10 +163,11 @@ int server::run() {
 
                         cout << "envia o recibe: " << generaCodigo() << endl;
                         cin >> condicion;
-                        buffer[valread] = '\0';
+
 
                         if (condicion == 1) {
-                            send(sd, buffer, strlen(buffer), 0);
+                            //char * mensajeX = "HELLOU";
+                            broadcoast(client_socket, "HELLOU");
                             printf("message sent\n");
 
                         } else if (condicion == 2) {
@@ -182,8 +179,28 @@ int server::run() {
         }
 }
 
+int server::sendToClient(int server_fd, char* mensaje) {
+    return send(server_fd,mensaje,strlen(mensaje),0);
+}
+
+int server::readFromClient(int client_fd, char* buffer) {
+    int valread= read(client_fd, buffer, 1024);
+    buffer[valread] = '\0';
+    return valread;
+}
+
+int server::broadcoast(int client_socket[5], char * mensaje){
+    for(int i = 0; i<5; i++){
+        if (client_socket[i]!=0){
+            send(client_socket[i],mensaje,strlen(mensaje),0);
+        }
+    }
+}
+
+
 int server::generaCodigo() { //genera codigo de acceso, que es un numero randon entre 100000 y 999999
 
     int codigo = rand() % 900000 + 100000;
     return codigo;
 }
+

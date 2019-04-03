@@ -41,13 +41,17 @@ public:
     struct sockaddr_in address;
     int opt = 1;
     int addrlen = sizeof(address);
-    char buffer[1024] = {0};
+    char buffer[1025] = {0};
     char *hello;
     Mensaje *mensaje;
 
     server();
     int run ();
     int generaCodigo();
+
+    int sendToClient(int server_fd, char* mensaje);
+    int readFromClient(int client_fd, char *buffer);
+    int broadcoast(int client_socket[5], char * mensaje);
 
 
 };
