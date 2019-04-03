@@ -5,7 +5,6 @@
 #include "server.h"
 
 server::server() {
-
     sock = 0, valread;
     hello = "Hello from client";
     buffer[1024] = {0};
@@ -37,12 +36,16 @@ int server::run() {
         return -1;
     }
 
-
-    valread = read(sock ,buffer, 1024);
-    printf("%s\n",buffer );
-
-    send(sock , hello , strlen(hello) , 0 );
-    printf("Hello message sent\n");
-
-
 }
+
+int server::sendToServer(int sock, char* mensaje) {
+    return send(sock,mensaje,strlen(mensaje),0);
+}
+
+int server::readFromServer(int sock, char* buffer) {
+    int valread= read(sock, buffer, 1024);
+    buffer[valread] = '\0';
+    return valread;
+}
+
+

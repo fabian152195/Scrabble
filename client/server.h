@@ -28,6 +28,12 @@ public:
     server();
     int run ();
 
+    static int sendToServer(int sock, char* mensaje);
+
+    static int readFromServer(int sock, char* buffer);
+
+
+
 
 };
 
