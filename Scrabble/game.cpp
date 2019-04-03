@@ -24,12 +24,19 @@ Game::Game(QString name,QImage my_image,QWidget *parent):QDialog(parent), ui(new
     mano->addFicha(QPoint(0,0), QChar(
                        'A'));
     mano->addFicha(QPoint(0,0), "B");
+    mano->addFicha(QPoint(0,0), "_");
     //Tablero
     tablero = new Tablero(this);
     tablero->setGeometry(0,0,800,500);
 
 
 
+}
+
+Game::~Game(){
+    delete ui;
+    delete tablero;
+    delete mano;
 }
 
 
@@ -64,18 +71,27 @@ void Game::on_label_2_clicked(){
                //Rechazo
                nuevas.clear(tablero);
                for(Ficha ficha:nuevas){
+                   if(ficha.getJoker()){
+                       mano->addFicha(QPoint(0,0), "_");
+                   }else{
+
                    mano->addFicha(QPoint(0,0),ficha.getLetra());
+                   }
                }
            }
        }else{
            //rechazo
            for(Ficha ficha:nuevas){
-                   mano->addFicha(QPoint(0,0),ficha.getLetra());
-           }
+               if(ficha.getJoker()){
+                   mano->addFicha(QPoint(0,0),"_");
+               }else{
+                   mano->addFicha(QPoint(0,0), ficha.getLetra());
+               }
            nuevas.clear(tablero);
        }
        // 262144: Abort, 524288: Retry
    }
+}
 }
 
 void Game::returnNuevas(){

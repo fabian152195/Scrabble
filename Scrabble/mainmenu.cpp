@@ -4,6 +4,8 @@
 #include <iostream>
 #include <QMessageBox>
 
+Collector MainMenu::collector = Collector();
+
 MainMenu::MainMenu(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainMenu)
@@ -14,6 +16,8 @@ MainMenu::MainMenu(QWidget *parent) :
 MainMenu::~MainMenu()
 {
     delete ui;
+    delete lobby;
+    delete shortcut;
 }
 
 void MainMenu::on_btn_create_clicked()
@@ -35,7 +39,6 @@ void MainMenu::on_btn_create_clicked()
 void MainMenu::on_btn_join_clicked()
 {
     //hide();
-    QInputDialog *inputD = new QInputDialog();
     int room_code = QInputDialog::getInt(this,"Hey","ha");
     /**
     Ahora toca enviar room_code a server para que lo evalue

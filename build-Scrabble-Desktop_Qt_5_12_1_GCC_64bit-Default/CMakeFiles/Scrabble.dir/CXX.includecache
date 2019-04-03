@@ -1,0 +1,10 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/kevin/Documentos/Proyectos/1/build-Scrabble-Desktop_Qt_5_12_1_GCC_64bit-Default/Scrabble_autogen/EWIEGA46WW/qrc_qml.cpp
+
