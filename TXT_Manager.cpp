@@ -99,7 +99,7 @@ int TXT_Manager::verif_palabra(string palabra) {
 }
 
 bool TXT_Manager::busqueda(string cadena) {
-    ifstream fe("/home/malavassi/Escritorio/TXTManager/Diccionario.txt");
+    ifstream fe("Diccionario.txt");
     string *a = new string();
     while(!fe.eof()){
         fe >> *a;
