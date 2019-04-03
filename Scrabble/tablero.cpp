@@ -1,4 +1,6 @@
+#include <stdio.h>
 #include "tablero.h"
+#include <ctype.h>
 #include "ficha.h"
 #include <QLabel>
 #include <QDebug>
@@ -30,7 +32,7 @@ void Tablero::dropEvent(QDropEvent *event){
     x = event->pos().x()/53*53.4;
     y = event->pos().y()/33*33.4;
 
-    if(event->mimeData()->hasFormat("image") && disponibles[x/53][y/33]){
+    if(event->mimeData()->hasFormat("image") && disponibles[x/53][y/33]){ 
         qDebug()<<x<<","<<y;
         qDebug()<<x/53<<","<<y/33;
         qDebug()<<"Debug1";
@@ -41,6 +43,13 @@ void Tablero::dropEvent(QDropEvent *event){
         QPixmap pixmap;
         QPoint location;
         dataStream >> pixmap >> location >> lettre >> joker;  //Recibe en el orden en que envia
+
+        if(lettre == '_'){
+            lettre = QInputDialog::getText(this,"Joker","Ingrese la letra que desea utilizar");
+            while(!(isalpha((int)*lettre.toStdString().c_str()) || lettre == '%' || lettre=='!' || lettre=='$'||lettre=='#')){
+                lettre = QInputDialog::getText(this,"Joker","Ingrese una letra");
+            }
+        }
 
         Ficha newFicha = Ficha(lettre, QPoint(x,y));
         Game::nuevas.push_back(newFicha, this);

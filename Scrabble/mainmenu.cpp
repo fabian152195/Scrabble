@@ -39,7 +39,6 @@ void MainMenu::on_btn_create_clicked()
 void MainMenu::on_btn_join_clicked()
 {
     //hide();
-    QInputDialog *inputD = new QInputDialog();
     int room_code = QInputDialog::getInt(this,"Hey","ha");
     /**
     Ahora toca enviar room_code a server para que lo evalue

@@ -13,6 +13,9 @@ public:
     QPoint getPos();
     Ficha *getNext();
     QPixmap getPixmap();
+    bool joker;
+    bool getJoker();
+    void setJoker(bool joker);
 private:
     QString letra;
     QPoint pos;

@@ -698,39 +698,48 @@ compiler_rcc_clean:
 	-$(DEL_FILE) qrc_resources.cpp
 qrc_resources.cpp: ../Scrabble/resources.qrc \
 		../../../../Qt/5.12.0/gcc_64/bin/rcc \
-		../images/join_button.png \
-		../images/A.png \
-		../images/B.png \
-		../images/hand_grid.png \
-		../images/C.png \
-		../images/lobby.png \
-		../images/D.png \
-		../images/E.png \
-		../images/grid.png \
-		../images/F.png \
-		../images/G.png \
-		../images/scrabble.png \
-		../images/H.png \
-		../images/I.png \
-		../images/J.png \
-		../images/L.png \
-		../images/M.png \
-		../images/N.png \
-		../images/default_user.png \
-		../images/O.png \
-		../images/P.png \
-		../images/scrabble_button.png \
-		../images/Q.png \
-		../images/R.png \
-		../images/S.png \
-		../images/T.png \
-		../images/make_button.png \
-		../images/U.png \
-		../images/V.png \
-		../images/X.png \
-		../images/Y.png \
 		../images/Z.png \
-		../images/rsz_1textura-verde-turquesa-1575.jpg
+		../images/P.png \
+		../images/F.png \
+		../images/Y.png \
+		../images/scrabble_button.png \
+		../images/join_button.png \
+		../images/O.png \
+		../images/rsz_1textura-verde-turquesa-1575.jpg \
+		../images/E.png \
+		../images/make_button.png \
+		../images/X.png \
+		../images/N.png \
+		../images/D.png \
+		../images/grid.png \
+		../images/M.png \
+		../images/hand_grid.png \
+		../images/scrabble.png \
+		../images/C.png \
+		../images/V.png \
+		../images/L.png \
+		../images/_.png \
+		../images/B.png \
+		../images/U.png \
+		../images/%.png \
+		../images/A.png \
+		../images/T.png \
+		../images/$.png \
+		../images/default_user.png \
+		../images/J.png \
+		../images/plateauvierge.png \
+		../images/lobby.png \
+		../images/Blank\ Diagram.png \
+		../images/S.png \
+		../images/\#.png \
+		../images/I.png \
+		../images/R.png \
+		../images/H.png \
+		../images/join_button.svg \
+		../images/png \
+		../images/Q.png \
+		../images/!.png \
+		../images/G.png
 	/home/kevin/Qt/5.12.0/gcc_64/bin/rcc -name resources ../Scrabble/resources.qrc -o qrc_resources.cpp
 
 compiler_moc_predefs_make_all: moc_predefs.h
@@ -885,6 +894,7 @@ moc_mainmenu.cpp: ../../../../Qt/5.12.0/gcc_64/include/QtWidgets/QMainWindow \
 		../../../../Qt/5.12.0/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtWidgets/qgridlayout.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtWidgets/QHBoxLayout \
+		../Scrabble/collector.h \
 		../Scrabble/mainmenu.h \
 		moc_predefs.h \
 		../../../../Qt/5.12.0/gcc_64/bin/moc
@@ -1915,6 +1925,7 @@ main.o: ../Scrabble/main.cpp ../Scrabble/mainmenu.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtWidgets/qgridlayout.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtWidgets/QHBoxLayout \
+		../Scrabble/collector.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtWidgets/QApplication \
 		../../../../Qt/5.12.0/gcc_64/include/QtWidgets/qapplication.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtCore/qcoreapplication.h \
@@ -1924,8 +1935,7 @@ main.o: ../Scrabble/main.cpp ../Scrabble/mainmenu.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtGui/qinputmethod.h \
 		../Scrabble/jsonparser.h \
 		../Scrabble/fichatosend.h \
-		../../../../Qt/5.12.0/gcc_64/include/QtCore/QtDebug \
-		../Scrabble/collector.h
+		../../../../Qt/5.12.0/gcc_64/include/QtCore/QtDebug
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../Scrabble/main.cpp
 
 mainmenu.o: ../Scrabble/mainmenu.cpp ../Scrabble/mainmenu.h \
@@ -2072,6 +2082,7 @@ mainmenu.o: ../Scrabble/mainmenu.cpp ../Scrabble/mainmenu.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtWidgets/qlayoutitem.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtWidgets/qgridlayout.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtWidgets/QHBoxLayout \
+		../Scrabble/collector.h \
 		ui_mainmenu.h \
 		../../../../Qt/5.12.0/gcc_64/include/QtCore/QVariant \
 		../../../../Qt/5.12.0/gcc_64/include/QtWidgets/QApplication \
