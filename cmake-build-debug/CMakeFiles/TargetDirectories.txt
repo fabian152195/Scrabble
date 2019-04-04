@@ -1,0 +1,3 @@
+/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/cmake-build-debug/CMakeFiles/rebuild_cache.dir
+/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/cmake-build-debug/CMakeFiles/Proyecto_I.dir
+/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/cmake-build-debug/CMakeFiles/edit_cache.dir
