@@ -6,18 +6,16 @@
 
 
 using namespace std;
-using namespace rapidjson;
 
 server::server() {
     opt=1;
-    hello = (char*) "Hello from client";
-    mensaje = new Mensaje("Hellou from client");
 }
 
 int server::run() {
     //Example code: A simple server side code, which echos back the received message.
 //Handle multiple socket connections with select and fd_set on Linux
         int opt = TRUE;
+        this->room = new Room(generaCodigo());
         int master_socket, addrlen, new_socket, client_socket[5],
                 max_clients = 5, activity, i, valread, sd;
         int max_sd;
@@ -116,13 +114,6 @@ int server::run() {
                 //inform user of socket number - used in send and receive commands
                 printf("New connection, socket fd is %d , ip is : %s , port : %d\n" , new_socket , inet_ntoa(address.sin_addr) , ntohs(address.sin_port));
 
-                //send new connection greeting message
-                if (sendToClient(new_socket, message) != strlen(message)) {
-                    perror("send");
-                }
-
-                puts("Welcome message sent successfully");
-
                 //add new socket to array of sockets
                 for (i = 0; i < max_clients; i++) {
                     //if position is empty
@@ -152,6 +143,7 @@ int server::run() {
                         (socklen_t *) &addrlen);
                         printf("Host disconnected , ip %s , port %d \n",
                                inet_ntoa(address.sin_addr), ntohs(address.sin_port));
+                        room->getPlayers().clear();
                         //Close the socket and mark as 0 in list for reuse
                         close(sd);
                         client_socket[i] = 0;
@@ -160,26 +152,46 @@ int server::run() {
                     else {
                         //set the string terminating NULL byte on the end
                         //of the data read
-
-                        cout << "envia o recibe: " << generaCodigo() << endl;
-                        cin >> condicion;
-
-
-                        if (condicion == 1) {
-                            //char * mensajeX = "HELLOU";
-                            broadcoast(client_socket, "HELLOU");
-                            printf("message sent\n");
-
-                        } else if (condicion == 2) {
-                            printf("%s\n", buffer);
-                        } else{}
+                        if(strncmp(buffer,"room_c",6)==0){ // peticion de creacion
+                            cout<<"New room!"<<endl;
+                            sendToClient(sd,"name");
+                            readFromClient(sd, buffer);
+                            cout<<buffer<<endl<<flush;
+                            //this->room = new Room(generaCodigo());
+                            //rooms.push_back(room);
+                            sendToClient(sd, to_string(room->getCode()).c_str());
+                            this->room->addPlayer(Player(sd, buffer));
+                        }else if(strncmp(buffer, "room_j",6)==0){  //peticion de union
+                            cout<<"Joining room!"<<endl;
+                            sendToClient(sd,"code");
+                            readFromClient(sd, buffer);  // Obtiene el codigo
+                            bool found = false;
+                            if(strncmp(std::to_string(room->getCode()).c_str(),buffer,10)==0){  //Cuando la encuentre...
+                                sendToClient(sd,"approved");
+                                // readFromClient(sd, buffer); // pong
+                                // sendToClient(sd,std::to_string(selected.getCode()).c_str());  // Envia codigo de sala
+                                readFromClient(sd,buffer);  // Pide el nombre
+                                Player new_player = Player(sd, buffer);
+                                room->addPlayer(new_player);
+                                cout<<"Hay:"<<room->getPlayers().size()<<endl;
+                                if(room->getPlayers().size() == 4){
+                                    //Empiece el juego hp
+                                    cout<< "Ya";
+                                    for(Player player : room->getPlayers()){
+                                        sendToClient(player.getClient(), "play");
+                                    }
+                                }
+                            }else{
+                                sendToClient(sd,"rejected");
+                            }
+                        }
                     }
                 }
             }
         }
 }
 
-int server::sendToClient(int server_fd, char* mensaje) {
+int server::sendToClient(int server_fd, const char* mensaje) {
     return send(server_fd,mensaje,strlen(mensaje),0);
 }
 

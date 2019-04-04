@@ -1,8 +1,16 @@
+#include "Client.h"
+#include <QThread>
 #include "lobby.h"
 #include <QInputDialog>
 #include "ui_lobby.h"
 #include <QtDebug>
 #include <QHBoxLayout>
+#include <thread>
+#include <cstring>
+#include "worker.h"
+
+
+
 
 Lobby::Lobby(bool newLobby,int room_number, QWidget *parent) :
     QDialog(parent),
@@ -10,17 +18,42 @@ Lobby::Lobby(bool newLobby,int room_number, QWidget *parent) :
 {
     ui->setupUi(this);
     c_players = 1;
-    ui->room_number->setNum(room_number);
+    //ui->room_number->setNum(room_number);
     my_name = QInputDialog::getText(this,"Nombre","Ingrese su nombre a continuacion");
+    if(newLobby){
+        addPlayer(my_name);
+        Client::sendToServer("room_c");
+        Client::readFromServer(Client::buffer);
+        Client::sendToServer(my_name.toStdString().c_str());
+        char room_number[50];
+        Client::readFromServer(room_number);
+        ui->room_number->setText(room_number);
+    }else{
+        Client::sendToServer(my_name.toStdString().c_str());  // envio nombre 
+    }
     QImage default_user = QImage(":/images/default_user.png");
     QImage def_user = default_user.scaled(100,100,Qt::KeepAspectRatio);
     ui->player_image->setPixmap(QPixmap::fromImage(def_user));
     my_image = def_user;
     players = list<QHBoxLayout*>();
     ui->player_name->setText(my_name);
-    if(newLobby){
-        addPlayer(my_name);
-    }
+    //Client::readFromServer(Client::buffer);
+    //std::thread t1(&Lobby::reposoLobby, this);
+    QThread *workerThread = new QThread();
+    Worker *worker = new Worker();
+    worker->moveToThread(workerThread);
+    connect(workerThread, &QThread::finished, worker, &QObject::deleteLater);
+    connect(this, &Lobby::operate, worker,&Worker::doWork);
+    connect(worker, &Worker::resultReady, this, &Lobby::on_pushButton_clicked);
+    workerThread->start();
+    emit operate();
+}
+
+void Lobby::juego(){
+    /*
+    Client::readFromServer(Client::buffer);
+    cout<<"Empieza!"<<endl<<flush;
+    on_pushButton_clicked();*/
 }
 
 Lobby::~Lobby()

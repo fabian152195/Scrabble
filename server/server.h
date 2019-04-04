@@ -19,12 +19,10 @@
 #include <netinet/in.h>
 #include <sys/time.h> //FD_SET, FD_ISSET, FD_ZERO macros
 #include <cstdlib>
-#include "rapidjson/pointer.h"
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
 #include <iostream>
-#include "Mensaje.h"
+#include "Room.h"
+#include "Player.h"
+
 
 
 
@@ -42,16 +40,16 @@ public:
     int opt = 1;
     int addrlen = sizeof(address);
     char buffer[1025] = {0};
-    char *hello;
-    Mensaje *mensaje;
-
     server();
     int run ();
     int generaCodigo();
-
-    int sendToClient(int server_fd, char* mensaje);
+    int sendToClient(int server_fd, const char* mensaje);
     int readFromClient(int client_fd, char *buffer);
     int broadcoast(int client_socket[5], char * mensaje);
+
+private:
+    list<Room> rooms;
+    Room *room;
 
 
 };
