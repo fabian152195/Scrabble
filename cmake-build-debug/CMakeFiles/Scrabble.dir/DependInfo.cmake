@@ -5,6 +5,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
   "/home/malavassi/Escritorio/Scrabble/Ficha.cpp" "/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/Scrabble.dir/Ficha.cpp.o"
+  "/home/malavassi/Escritorio/Scrabble/Juego.cpp" "/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/Scrabble.dir/Juego.cpp.o"
+  "/home/malavassi/Escritorio/Scrabble/Jugador.cpp" "/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/Scrabble.dir/Jugador.cpp.o"
+  "/home/malavassi/Escritorio/Scrabble/ListaFichas.cpp" "/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/Scrabble.dir/ListaFichas.cpp.o"
   "/home/malavassi/Escritorio/Scrabble/TXT_Manager.cpp" "/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/Scrabble.dir/TXT_Manager.cpp.o"
   "/home/malavassi/Escritorio/Scrabble/Tests/test.cpp" "/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/Scrabble.dir/Tests/test.cpp.o"
   "/home/malavassi/Escritorio/Scrabble/main.cpp" "/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/Scrabble.dir/main.cpp.o"

@@ -4,11 +4,11 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/Ficha.cpp" "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/cmake-build-debug/CMakeFiles/Proyecto_I.dir/Ficha.cpp.o"
-  "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/Juego.cpp" "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/cmake-build-debug/CMakeFiles/Proyecto_I.dir/Juego.cpp.o"
-  "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/Jugador.cpp" "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/cmake-build-debug/CMakeFiles/Proyecto_I.dir/Jugador.cpp.o"
-  "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/ListaFichas.cpp" "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/cmake-build-debug/CMakeFiles/Proyecto_I.dir/ListaFichas.cpp.o"
-  "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/main.cpp" "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/cmake-build-debug/CMakeFiles/Proyecto_I.dir/main.cpp.o"
+  "/home/malavassi/Escritorio/Scrabble/Ficha.cpp" "/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/Proyecto_I.dir/Ficha.cpp.o"
+  "/home/malavassi/Escritorio/Scrabble/Juego.cpp" "/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/Proyecto_I.dir/Juego.cpp.o"
+  "/home/malavassi/Escritorio/Scrabble/Jugador.cpp" "/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/Proyecto_I.dir/Jugador.cpp.o"
+  "/home/malavassi/Escritorio/Scrabble/ListaFichas.cpp" "/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/Proyecto_I.dir/ListaFichas.cpp.o"
+  "/home/malavassi/Escritorio/Scrabble/main.cpp" "/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/Proyecto_I.dir/main.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

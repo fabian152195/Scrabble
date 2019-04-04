@@ -109,12 +109,54 @@ CMakeFiles/Scrabble.dir/Ficha.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Scrabble.dir/Ficha.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/malavassi/Escritorio/Scrabble/Ficha.cpp -o CMakeFiles/Scrabble.dir/Ficha.cpp.s
 
+CMakeFiles/Scrabble.dir/ListaFichas.cpp.o: CMakeFiles/Scrabble.dir/flags.make
+CMakeFiles/Scrabble.dir/ListaFichas.cpp.o: ../ListaFichas.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/Scrabble.dir/ListaFichas.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Scrabble.dir/ListaFichas.cpp.o -c /home/malavassi/Escritorio/Scrabble/ListaFichas.cpp
+
+CMakeFiles/Scrabble.dir/ListaFichas.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Scrabble.dir/ListaFichas.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/malavassi/Escritorio/Scrabble/ListaFichas.cpp > CMakeFiles/Scrabble.dir/ListaFichas.cpp.i
+
+CMakeFiles/Scrabble.dir/ListaFichas.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Scrabble.dir/ListaFichas.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/malavassi/Escritorio/Scrabble/ListaFichas.cpp -o CMakeFiles/Scrabble.dir/ListaFichas.cpp.s
+
+CMakeFiles/Scrabble.dir/Jugador.cpp.o: CMakeFiles/Scrabble.dir/flags.make
+CMakeFiles/Scrabble.dir/Jugador.cpp.o: ../Jugador.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/Scrabble.dir/Jugador.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Scrabble.dir/Jugador.cpp.o -c /home/malavassi/Escritorio/Scrabble/Jugador.cpp
+
+CMakeFiles/Scrabble.dir/Jugador.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Scrabble.dir/Jugador.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/malavassi/Escritorio/Scrabble/Jugador.cpp > CMakeFiles/Scrabble.dir/Jugador.cpp.i
+
+CMakeFiles/Scrabble.dir/Jugador.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Scrabble.dir/Jugador.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/malavassi/Escritorio/Scrabble/Jugador.cpp -o CMakeFiles/Scrabble.dir/Jugador.cpp.s
+
+CMakeFiles/Scrabble.dir/Juego.cpp.o: CMakeFiles/Scrabble.dir/flags.make
+CMakeFiles/Scrabble.dir/Juego.cpp.o: ../Juego.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CXX object CMakeFiles/Scrabble.dir/Juego.cpp.o"
+	/usr/bin/c++  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/Scrabble.dir/Juego.cpp.o -c /home/malavassi/Escritorio/Scrabble/Juego.cpp
+
+CMakeFiles/Scrabble.dir/Juego.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/Scrabble.dir/Juego.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/malavassi/Escritorio/Scrabble/Juego.cpp > CMakeFiles/Scrabble.dir/Juego.cpp.i
+
+CMakeFiles/Scrabble.dir/Juego.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/Scrabble.dir/Juego.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/malavassi/Escritorio/Scrabble/Juego.cpp -o CMakeFiles/Scrabble.dir/Juego.cpp.s
+
 # Object files for target Scrabble
 Scrabble_OBJECTS = \
 "CMakeFiles/Scrabble.dir/main.cpp.o" \
 "CMakeFiles/Scrabble.dir/TXT_Manager.cpp.o" \
 "CMakeFiles/Scrabble.dir/Tests/test.cpp.o" \
-"CMakeFiles/Scrabble.dir/Ficha.cpp.o"
+"CMakeFiles/Scrabble.dir/Ficha.cpp.o" \
+"CMakeFiles/Scrabble.dir/ListaFichas.cpp.o" \
+"CMakeFiles/Scrabble.dir/Jugador.cpp.o" \
+"CMakeFiles/Scrabble.dir/Juego.cpp.o"
 
 # External object files for target Scrabble
 Scrabble_EXTERNAL_OBJECTS =
@@ -123,12 +165,15 @@ Scrabble: CMakeFiles/Scrabble.dir/main.cpp.o
 Scrabble: CMakeFiles/Scrabble.dir/TXT_Manager.cpp.o
 Scrabble: CMakeFiles/Scrabble.dir/Tests/test.cpp.o
 Scrabble: CMakeFiles/Scrabble.dir/Ficha.cpp.o
+Scrabble: CMakeFiles/Scrabble.dir/ListaFichas.cpp.o
+Scrabble: CMakeFiles/Scrabble.dir/Jugador.cpp.o
+Scrabble: CMakeFiles/Scrabble.dir/Juego.cpp.o
 Scrabble: CMakeFiles/Scrabble.dir/build.make
 Scrabble: lib/libgtestd.a
 Scrabble: lib/libgtest_maind.a
 Scrabble: lib/libgtestd.a
 Scrabble: CMakeFiles/Scrabble.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX executable Scrabble"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Linking CXX executable Scrabble"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/Scrabble.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

@@ -338,10 +338,34 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/malavassi/Escritorio/Scrabble/DoublyLinkedList.h">
+			<Option target="Scrabble"/>
+		</Unit>
 		<Unit filename="/home/malavassi/Escritorio/Scrabble/Ficha.cpp">
 			<Option target="Scrabble"/>
 		</Unit>
 		<Unit filename="/home/malavassi/Escritorio/Scrabble/Ficha.h">
+			<Option target="Scrabble"/>
+		</Unit>
+		<Unit filename="/home/malavassi/Escritorio/Scrabble/Juego.cpp">
+			<Option target="Scrabble"/>
+		</Unit>
+		<Unit filename="/home/malavassi/Escritorio/Scrabble/Juego.h">
+			<Option target="Scrabble"/>
+		</Unit>
+		<Unit filename="/home/malavassi/Escritorio/Scrabble/Jugador.cpp">
+			<Option target="Scrabble"/>
+		</Unit>
+		<Unit filename="/home/malavassi/Escritorio/Scrabble/Jugador.h">
+			<Option target="Scrabble"/>
+		</Unit>
+		<Unit filename="/home/malavassi/Escritorio/Scrabble/ListaFichas.cpp">
+			<Option target="Scrabble"/>
+		</Unit>
+		<Unit filename="/home/malavassi/Escritorio/Scrabble/ListaFichas.h">
+			<Option target="Scrabble"/>
+		</Unit>
+		<Unit filename="/home/malavassi/Escritorio/Scrabble/Node.h">
 			<Option target="Scrabble"/>
 		</Unit>
 		<Unit filename="/home/malavassi/Escritorio/Scrabble/TXT_Manager.cpp">
@@ -354,6 +378,9 @@
 			<Option target="Scrabble"/>
 		</Unit>
 		<Unit filename="/home/malavassi/Escritorio/Scrabble/Tests/test.cpp">
+			<Option target="Scrabble"/>
+		</Unit>
+		<Unit filename="/home/malavassi/Escritorio/Scrabble/cmake-build-debug/Proyecto_I">
 			<Option target="Scrabble"/>
 		</Unit>
 		<Unit filename="/home/malavassi/Escritorio/Scrabble/lib/googletest-master/googlemock/src/gmock-all.cc">

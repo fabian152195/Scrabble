@@ -3,6 +3,9 @@ file(REMOVE_RECURSE
   "CMakeFiles/Scrabble.dir/TXT_Manager.cpp.o"
   "CMakeFiles/Scrabble.dir/Tests/test.cpp.o"
   "CMakeFiles/Scrabble.dir/Ficha.cpp.o"
+  "CMakeFiles/Scrabble.dir/ListaFichas.cpp.o"
+  "CMakeFiles/Scrabble.dir/Jugador.cpp.o"
+  "CMakeFiles/Scrabble.dir/Juego.cpp.o"
   "Scrabble.pdb"
   "Scrabble"
 )

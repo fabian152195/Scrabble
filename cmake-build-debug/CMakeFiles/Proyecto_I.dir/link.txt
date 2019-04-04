@@ -1,1 +1,1 @@
-/usr/bin/c++  -g   CMakeFiles/Proyecto_I.dir/main.cpp.o CMakeFiles/Proyecto_I.dir/Ficha.cpp.o CMakeFiles/Proyecto_I.dir/ListaFichas.cpp.o CMakeFiles/Proyecto_I.dir/Jugador.cpp.o CMakeFiles/Proyecto_I.dir/Juego.cpp.o  -o Proyecto_I 
+/usr/bin/c++  -g  -rdynamic CMakeFiles/Proyecto_I.dir/main.cpp.o CMakeFiles/Proyecto_I.dir/Ficha.cpp.o CMakeFiles/Proyecto_I.dir/ListaFichas.cpp.o CMakeFiles/Proyecto_I.dir/Jugador.cpp.o CMakeFiles/Proyecto_I.dir/Juego.cpp.o  -o Proyecto_I 

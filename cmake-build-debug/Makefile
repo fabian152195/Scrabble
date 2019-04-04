@@ -39,43 +39,23 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-<<<<<<< HEAD
-CMAKE_COMMAND = /home/cvaz/Downloads/Clion/clion-2018.3.4/bin/cmake/linux/bin/cmake
-
-# The command to remove a file.
-RM = /home/cvaz/Downloads/Clion/clion-2018.3.4/bin/cmake/linux/bin/cmake -E remove -f
-=======
 CMAKE_COMMAND = /snap/clion/67/bin/cmake/linux/bin/cmake
 
 # The command to remove a file.
 RM = /snap/clion/67/bin/cmake/linux/bin/cmake -E remove -f
->>>>>>> txt_Management
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-<<<<<<< HEAD
-CMAKE_SOURCE_DIR = "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I"
-
-# The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/cmake-build-debug"
-=======
 CMAKE_SOURCE_DIR = /home/malavassi/Escritorio/Scrabble
 
 # The top-level build directory on which CMake was run.
 CMAKE_BINARY_DIR = /home/malavassi/Escritorio/Scrabble/cmake-build-debug
->>>>>>> txt_Management
 
 #=============================================================================
 # Targets provided globally by CMake.
 
-<<<<<<< HEAD
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/home/cvaz/Downloads/Clion/clion-2018.3.4/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-=======
 # Special rule for the target install/strip
 install/strip: preinstall
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing the project stripped..."
@@ -103,7 +83,6 @@ edit_cache/fast: edit_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
 	/snap/clion/67/bin/cmake/linux/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
->>>>>>> txt_Management
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -111,24 +90,6 @@ rebuild_cache/fast: rebuild_cache
 
 .PHONY : rebuild_cache/fast
 
-<<<<<<< HEAD
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/home/cvaz/Downloads/Clion/clion-2018.3.4/bin/cmake/linux/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
-# The main all target
-all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/cmake-build-debug/CMakeFiles" "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/cmake-build-debug/CMakeFiles/progress.marks"
-	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start "/home/cvaz/Documents/Algoritmos y Estructuras de Datos II/Proyecto I/cmake-build-debug/CMakeFiles" 0
-=======
 # Special rule for the target list_install_components
 list_install_components:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Available install components are: \"Unspecified\""
@@ -168,7 +129,6 @@ all: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles /home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
 	$(CMAKE_COMMAND) -E cmake_progress_start /home/malavassi/Escritorio/Scrabble/cmake-build-debug/CMakeFiles 0
->>>>>>> txt_Management
 .PHONY : all
 
 # The main clean target
@@ -197,19 +157,6 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-<<<<<<< HEAD
-# Target rules for targets named Proyecto_I
-
-# Build rule for target.
-Proyecto_I: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 Proyecto_I
-.PHONY : Proyecto_I
-
-# fast build rule for target.
-Proyecto_I/fast:
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/build
-.PHONY : Proyecto_I/fast
-=======
 # Target rules for targets named Scrabble
 
 # Build rule for target.
@@ -273,7 +220,6 @@ gtest: cmake_check_build_system
 gtest/fast:
 	$(MAKE) -f lib/googletest-master/googlemock/gtest/CMakeFiles/gtest.dir/build.make lib/googletest-master/googlemock/gtest/CMakeFiles/gtest.dir/build
 .PHONY : gtest/fast
->>>>>>> txt_Management
 
 Ficha.o: Ficha.cpp.o
 
@@ -281,11 +227,7 @@ Ficha.o: Ficha.cpp.o
 
 # target to build an object file
 Ficha.cpp.o:
-<<<<<<< HEAD
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/Ficha.cpp.o
-=======
 	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Ficha.cpp.o
->>>>>>> txt_Management
 .PHONY : Ficha.cpp.o
 
 Ficha.i: Ficha.cpp.i
@@ -294,11 +236,7 @@ Ficha.i: Ficha.cpp.i
 
 # target to preprocess a source file
 Ficha.cpp.i:
-<<<<<<< HEAD
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/Ficha.cpp.i
-=======
 	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Ficha.cpp.i
->>>>>>> txt_Management
 .PHONY : Ficha.cpp.i
 
 Ficha.s: Ficha.cpp.s
@@ -307,8 +245,7 @@ Ficha.s: Ficha.cpp.s
 
 # target to generate assembly for a file
 Ficha.cpp.s:
-<<<<<<< HEAD
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/Ficha.cpp.s
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Ficha.cpp.s
 .PHONY : Ficha.cpp.s
 
 Juego.o: Juego.cpp.o
@@ -317,7 +254,7 @@ Juego.o: Juego.cpp.o
 
 # target to build an object file
 Juego.cpp.o:
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/Juego.cpp.o
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Juego.cpp.o
 .PHONY : Juego.cpp.o
 
 Juego.i: Juego.cpp.i
@@ -326,7 +263,7 @@ Juego.i: Juego.cpp.i
 
 # target to preprocess a source file
 Juego.cpp.i:
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/Juego.cpp.i
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Juego.cpp.i
 .PHONY : Juego.cpp.i
 
 Juego.s: Juego.cpp.s
@@ -335,7 +272,7 @@ Juego.s: Juego.cpp.s
 
 # target to generate assembly for a file
 Juego.cpp.s:
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/Juego.cpp.s
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Juego.cpp.s
 .PHONY : Juego.cpp.s
 
 Jugador.o: Jugador.cpp.o
@@ -344,7 +281,7 @@ Jugador.o: Jugador.cpp.o
 
 # target to build an object file
 Jugador.cpp.o:
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/Jugador.cpp.o
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Jugador.cpp.o
 .PHONY : Jugador.cpp.o
 
 Jugador.i: Jugador.cpp.i
@@ -353,7 +290,7 @@ Jugador.i: Jugador.cpp.i
 
 # target to preprocess a source file
 Jugador.cpp.i:
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/Jugador.cpp.i
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Jugador.cpp.i
 .PHONY : Jugador.cpp.i
 
 Jugador.s: Jugador.cpp.s
@@ -362,7 +299,7 @@ Jugador.s: Jugador.cpp.s
 
 # target to generate assembly for a file
 Jugador.cpp.s:
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/Jugador.cpp.s
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Jugador.cpp.s
 .PHONY : Jugador.cpp.s
 
 ListaFichas.o: ListaFichas.cpp.o
@@ -371,7 +308,7 @@ ListaFichas.o: ListaFichas.cpp.o
 
 # target to build an object file
 ListaFichas.cpp.o:
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/ListaFichas.cpp.o
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/ListaFichas.cpp.o
 .PHONY : ListaFichas.cpp.o
 
 ListaFichas.i: ListaFichas.cpp.i
@@ -380,7 +317,7 @@ ListaFichas.i: ListaFichas.cpp.i
 
 # target to preprocess a source file
 ListaFichas.cpp.i:
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/ListaFichas.cpp.i
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/ListaFichas.cpp.i
 .PHONY : ListaFichas.cpp.i
 
 ListaFichas.s: ListaFichas.cpp.s
@@ -389,11 +326,8 @@ ListaFichas.s: ListaFichas.cpp.s
 
 # target to generate assembly for a file
 ListaFichas.cpp.s:
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/ListaFichas.cpp.s
+	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/ListaFichas.cpp.s
 .PHONY : ListaFichas.cpp.s
-=======
-	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Ficha.cpp.s
-.PHONY : Ficha.cpp.s
 
 TXT_Manager.o: TXT_Manager.cpp.o
 
@@ -448,7 +382,6 @@ Tests/test.s: Tests/test.cpp.s
 Tests/test.cpp.s:
 	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/Tests/test.cpp.s
 .PHONY : Tests/test.cpp.s
->>>>>>> txt_Management
 
 main.o: main.cpp.o
 
@@ -456,11 +389,7 @@ main.o: main.cpp.o
 
 # target to build an object file
 main.cpp.o:
-<<<<<<< HEAD
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/main.cpp.o
-=======
 	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/main.cpp.o
->>>>>>> txt_Management
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -469,11 +398,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-<<<<<<< HEAD
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/main.cpp.i
-=======
 	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/main.cpp.i
->>>>>>> txt_Management
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -482,11 +407,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-<<<<<<< HEAD
-	$(MAKE) -f CMakeFiles/Proyecto_I.dir/build.make CMakeFiles/Proyecto_I.dir/main.cpp.s
-=======
 	$(MAKE) -f CMakeFiles/Scrabble.dir/build.make CMakeFiles/Scrabble.dir/main.cpp.s
->>>>>>> txt_Management
 .PHONY : main.cpp.s
 
 # Help Target
@@ -495,23 +416,6 @@ help:
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-<<<<<<< HEAD
-	@echo "... rebuild_cache"
-	@echo "... Proyecto_I"
-	@echo "... edit_cache"
-	@echo "... Ficha.o"
-	@echo "... Ficha.i"
-	@echo "... Ficha.s"
-	@echo "... Juego.o"
-	@echo "... Juego.i"
-	@echo "... Juego.s"
-	@echo "... Jugador.o"
-	@echo "... Jugador.i"
-	@echo "... Jugador.s"
-	@echo "... ListaFichas.o"
-	@echo "... ListaFichas.i"
-	@echo "... ListaFichas.s"
-=======
 	@echo "... install/strip"
 	@echo "... edit_cache"
 	@echo "... Scrabble"
@@ -526,13 +430,21 @@ help:
 	@echo "... Ficha.o"
 	@echo "... Ficha.i"
 	@echo "... Ficha.s"
+	@echo "... Juego.o"
+	@echo "... Juego.i"
+	@echo "... Juego.s"
+	@echo "... Jugador.o"
+	@echo "... Jugador.i"
+	@echo "... Jugador.s"
+	@echo "... ListaFichas.o"
+	@echo "... ListaFichas.i"
+	@echo "... ListaFichas.s"
 	@echo "... TXT_Manager.o"
 	@echo "... TXT_Manager.i"
 	@echo "... TXT_Manager.s"
 	@echo "... Tests/test.o"
 	@echo "... Tests/test.i"
 	@echo "... Tests/test.s"
->>>>>>> txt_Management
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
