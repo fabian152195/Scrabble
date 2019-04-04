@@ -203,4 +203,14 @@ int server::generaCodigo() { //genera codigo de acceso, que es un numero randon 
     int codigo = rand() % 900000 + 100000;
     return codigo;
 }
-
+/*struct server_server_TEST : public testing::Test{
+    server test = new server();
+    void SetUp(){test = new server();}
+    void TearDown(){delete test;}
+};
+TEST_F(server_client_TEST,generaCodigo){
+    //Arrange
+    //Act
+    //Assert
+    ASSERT_EQ((generaCodigo()>=100000 and generaCodigo()<=999999),true);
+} */

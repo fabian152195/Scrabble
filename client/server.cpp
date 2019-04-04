@@ -47,5 +47,22 @@ int server::readFromServer(int sock, char* buffer) {
     buffer[valread] = '\0';
     return valread;
 }
+/*
+struct server_client_TEST : public testing::Test{
+    server *test;
+    void SetUp(){test = new server();}
+    void TearDown(){delete test;}
+};
 
+TEST_F(server_client_TEST,){
+   //Arrange
+   //Act
+   //Assert
+}
 
+TEST_F(server_client_TEST,){
+//Arrange
+//Act
+//Assert
+}
+*/
