@@ -2,3 +2,13 @@
 ./build-Scrabble-Desktop_Qt_5_12_1_GCC_64bit-Default 
 ./client/.idea
 ./server/.idea
+
+server/cmake-build-debug/
+
+build-Scrabble-Desktop_Qt_5_12_0_GCC_64bit2-Debug/
+
+*.autosave
+
+server/\.idea/
+
+client/\.idea/
