@@ -15,6 +15,17 @@ Juego::Juego(list<Player> jugadores) {
     this->jugadores = &jugadores;
 }
 
+void Juego::asignarFichas(int ctd_fichas, Player *jugador) {
+    list<Ficha*> nuev_fichas = jugador->getFichas();
+    while(ctd_fichas>0){
+        if(saco_fichas->getFichas().empty()){
+            break;
+        }
+        nuev_fichas.push_back(saco_fichas->getFichas().front());
+    }
+    jugador->setFichas(nuev_fichas);
+}
+
 //            ____________
 //___________/Nueva jugada
 int Juego::nuevaJugada(list<Ficha*> jugada) {
@@ -275,22 +286,4 @@ int Juego::calcPts(list<list<Ficha*>> palabras) {
         puntaje+=(pts_temp*palabra.front()->getMult_pal());
     }
     return puntaje;
-}
-
-//            __________________
-//___________/Getters & Setters
-DoublyLinkedList<DoublyLinkedList<Ficha *>> &Juego::getMatriz_fichas() {
-    return matriz_fichas;
-}
-
-void Juego::setMatriz_fichas(DoublyLinkedList<DoublyLinkedList<Ficha *>> &matriz_fichas) {
-    Juego::matriz_fichas = matriz_fichas;
-}
-
-ListaFichas *Juego::getSaco_fichas() {
-    return saco_fichas;
-}
-
-void Juego::setSaco_fichas(ListaFichas *saco_fichas) {
-    Juego::saco_fichas = saco_fichas;
 }

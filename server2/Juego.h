@@ -35,18 +35,7 @@ public:
 
     bool valPalabras(list<string> palabras);
 
-    void setMultiplicadores();
-
     int calcPts(list<list<Ficha*>> palabras);
-
-    DoublyLinkedList<DoublyLinkedList<Ficha *>> &getMatriz_fichas() ;
-
-    void setMatriz_fichas(DoublyLinkedList<DoublyLinkedList<Ficha *>> &matriz_fichas);
-
-    ListaFichas *getSaco_fichas();
-
-    void setSaco_fichas(ListaFichas *saco_fichas);
-
 
 private:
     DoublyLinkedList<DoublyLinkedList<Ficha*>> matriz_fichas;

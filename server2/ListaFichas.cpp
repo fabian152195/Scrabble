@@ -10,9 +10,9 @@ ListaFichas::ListaFichas() {
     }
 
 void ListaFichas::crearFichas() {
-    list<Ficha> list_izq;
-    list<Ficha> list_cen;
-    list<Ficha> list_der;
+    list<Ficha*> list_izq;
+    list<Ficha*> list_cen;
+    list<Ficha*> list_der;
     int i=0;
     int j=0;
     srand (time(NULL));
@@ -22,23 +22,23 @@ void ListaFichas::crearFichas() {
             int ran=rand() % 100;
             if(ran<33) {
                 if (ran % 2 == 0) {
-                    list_izq.push_front(*ficha);
+                    list_izq.push_front(ficha);
                 } else {
-                    list_izq.push_back(*ficha);
+                    list_izq.push_back(ficha);
                 }
             }
             else if(ran<66) {
                 if (ran % 2 == 0) {
-                    list_cen.push_front(*ficha);
+                    list_cen.push_front(ficha);
                 } else {
-                    list_cen.push_back(*ficha);
+                    list_cen.push_back(ficha);
                 }
             }
             else if(ran>=66) {
                 if (ran % 2 == 0) {
-                    list_der.push_front(*ficha);
+                    list_der.push_front(ficha);
                 } else {
-                    list_der.push_back(*ficha);
+                    list_der.push_back(ficha);
                 }
             }
             instancias[i]--;
@@ -47,33 +47,23 @@ void ListaFichas::crearFichas() {
         i++;
     }
     while(list_izq.size()>0){
-        fichas.push_front(*list_izq.begin());
+        fichas.push_front(list_izq.front());
         list_izq.pop_front();
     }
     while(list_cen.size()>0){
-        fichas.push_front(*list_cen.begin());
+        fichas.push_front(list_cen.front());
         list_cen.pop_front();
     }
     while(list_der.size()>0){
-        fichas.push_front(*list_der.begin());
+        fichas.push_front(list_der.front());
         list_der.pop_front();
     }
 }
 
-void ListaFichas::sumarListas(list<Ficha> list_final, list<Ficha> lista_tmp) {
-    while(lista_tmp.size()>0){
-        list_final.push_back(*lista_tmp.begin());
-        lista_tmp.pop_front();
-    }
-}
-
-list<Ficha> &ListaFichas::getFichas(){
+list<Ficha*> &ListaFichas::getFichas(){
     return fichas;
 }
 
-void ListaFichas::setFichas(const list<Ficha> &fichas) {
-    ListaFichas::fichas = fichas;
-}
 
 
 

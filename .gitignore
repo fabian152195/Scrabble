@@ -46,3 +46,7 @@ server2/cmake-build-debug/
 server2/Libreria\.zip
 
 *.xml
+
+\.idea/
+
+cmake-build-debug/
