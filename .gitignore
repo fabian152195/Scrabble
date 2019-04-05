@@ -38,3 +38,11 @@ server/CMakeLists\.txt
 
 *.swp
 >>>>>>> master
+
+server2/\.idea/
+
+server2/cmake-build-debug/
+
+server2/Libreria\.zip
+
+*.xml
