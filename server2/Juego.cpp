@@ -1,12 +1,18 @@
 //
 // Created by cvaz on 30/03/19.
 //
-#include "TXT_Manager.h"
+//#include "TXT_Manager.h"
 #include "Juego.h"
 
 Juego::Juego() {
     saco_fichas = new ListaFichas();
     llenarMatriz();
+}
+
+Juego::Juego(list<Player> jugadores) {
+    saco_fichas = new ListaFichas();
+    llenarMatriz();
+    this->jugadores = &jugadores;
 }
 
 //            ____________

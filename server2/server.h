@@ -22,6 +22,7 @@
 #include <iostream>
 #include "Room.h"
 #include "Player.h"
+#include "Juego.h"
 
 #define TRUE   1
 #define FALSE  0

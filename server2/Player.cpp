@@ -18,3 +18,31 @@ int Player::getClient() {
 string Player::getName() {
     return name;
 }
+void Player::sumar(int pts) {
+    puntaje+=pts;
+}
+
+int Player::getPuntaje(){
+    return puntaje;
+}
+
+void Player::setPuntaje(int puntaje) {
+    this->puntaje = puntaje;
+}
+
+list<Ficha*> Player::getFichas(){
+    return fichas;
+}
+
+bool Player::isTurno(){
+    return turno;
+}
+
+void Player::setTurno(bool turno) {
+    this->turno = turno;
+}
+
+void Player::setFichas( list<Ficha *> &fichas) {
+    Player::fichas = fichas;
+}
+

@@ -8,14 +8,20 @@
 #include "DoublyLinkedList.h"
 #include <list>
 #include "ListaFichas.h"
+#include "Player.h"
+#include "TXT_Manager.h"
 
 class Juego {
 public:
     Juego();
 
+    Juego(list<Player> jugadores);
+
     void llenarMatriz();
 
     void posicionarFichas(list<Ficha*> fichas);
+
+    void asignarFichas(int ctd_fichas, Player* jugador);
 
     int nuevaJugada(list<Ficha*> jugada);        //funcion de nueva jugada
 
@@ -42,11 +48,11 @@ public:
     void setSaco_fichas(ListaFichas *saco_fichas);
 
 
-
-        private:
+private:
     DoublyLinkedList<DoublyLinkedList<Ficha*>> matriz_fichas;
     ListaFichas* saco_fichas;
     TXT_Manager* buscador = new TXT_Manager();
+    list<Player> *jugadores = jugadores;
 };
 
 

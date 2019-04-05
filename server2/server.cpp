@@ -183,6 +183,8 @@ int server::run() {
                                     }
                                     // Aqui inicia el juego
 
+                                    Juego juego = Juego(room->getPlayers());
+
                                     // Asignar fichas a jugadores
                                     // Asignar turnos
                                     // Escuchar movimiento del jugador con el turno asignado
