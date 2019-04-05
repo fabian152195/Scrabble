@@ -36,7 +36,11 @@ SOURCES += \
     list.cpp \
     jsonparser.cpp \
     fichatosend.cpp \
-    collector.cpp
+    collector.cpp \
+    clickablelabel.cpp \
+    listener.cpp \
+    worker.cpp \
+    client.cpp
 
 HEADERS += \
         mainmenu.h \
@@ -50,7 +54,10 @@ HEADERS += \
     list.h \
     jsonparser.h \
     fichatosend.h \
-    collector.h
+    collector.h \
+    listener.h \
+    worker.h \
+    client.h
 
 FORMS += \
         mainmenu.ui \
