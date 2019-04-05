@@ -21,6 +21,7 @@ public:
     void assignCode(int code);
     int getCode();
     list<Player> getPlayers();
+    void setCode(int code);
 
 };
 

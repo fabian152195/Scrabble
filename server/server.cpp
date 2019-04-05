@@ -15,7 +15,7 @@ int server::run() {
     //Example code: A simple server side code, which echos back the received message.
 //Handle multiple socket connections with select and fd_set on Linux
         int opt = TRUE;
-        this->room = new Room(generaCodigo());
+        this->room = new Room();
         int master_socket, addrlen, new_socket, client_socket[5],
                 max_clients = 5, activity, i, valread, sd;
         int max_sd;
@@ -159,6 +159,7 @@ int server::run() {
                             cout<<buffer<<endl<<flush;
                             //this->room = new Room(generaCodigo());
                             //rooms.push_back(room);
+                            room->setCode(generaCodigo());
                             sendToClient(sd, to_string(room->getCode()).c_str());
                             this->room->addPlayer(Player(sd, buffer));
                         }else if(strncmp(buffer, "room_j",6)==0){  //peticion de union
@@ -180,6 +181,11 @@ int server::run() {
                                     for(Player player : room->getPlayers()){
                                         sendToClient(player.getClient(), "play");
                                     }
+                                    // Aqui inicia el juego
+
+                                    // Asignar fichas a jugadores
+                                    // Asignar turnos
+                                    // Escuchar movimiento del jugador con el turno asignado
                                 }
                             }else{
                                 sendToClient(sd,"rejected");
@@ -194,6 +200,8 @@ int server::run() {
 int server::sendToClient(int server_fd, const char* mensaje) {
     return send(server_fd,mensaje,strlen(mensaje),0);
 }
+
+
 
 int server::readFromClient(int client_fd, char* buffer) {
     int valread= read(client_fd, buffer, 1024);

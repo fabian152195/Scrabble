@@ -25,3 +25,7 @@ int Room::getCode(){
 list<Player> Room::getPlayers() {
     return players;
 }
+
+void Room::setCode(int code) {
+    this->code = code;
+}
