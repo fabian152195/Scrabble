@@ -66,4 +66,3 @@ list<Ficha*> &ListaFichas::getFichas(){
 
 
 
-

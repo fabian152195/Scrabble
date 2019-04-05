@@ -39,7 +39,7 @@ public:
 
 private:
     DoublyLinkedList<DoublyLinkedList<Ficha*>> matriz_fichas;
-    ListaFichas* saco_fichas;
+    ListaFichas saco_fichas;
     TXT_Manager* buscador = new TXT_Manager();
     list<Player> *jugadores = jugadores;
 };
