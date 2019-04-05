@@ -12,3 +12,5 @@ build-Scrabble-Desktop_Qt_5_12_0_GCC_64bit2-Debug/
 server/\.idea/
 
 client/\.idea/
+
+Scrabble/Scrabble\.pro
