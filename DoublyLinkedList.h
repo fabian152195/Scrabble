@@ -28,6 +28,18 @@ public:
         size+=1;
     };
 
+    void addData(T value, int multP, int multL){
+        Node<T>* nuevoNod = new Node<T>(value);
+        if(head== nullptr){
+            head=nuevoNod;
+            tail=nuevoNod;
+        } else {
+            tail->setNext(nuevoNod);
+            tail = nuevoNod;
+        }
+        size+=1;
+    };
+
     void addData(T value, int pos){
         Node<T>* nuevoNod = new Node<T>(value);
         if(head== nullptr){

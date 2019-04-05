@@ -25,10 +25,15 @@ public:
 
     void setPosY(int posY);
 
+    int getMult_ltr() const;
+
+    void setMult_ltr(int mult_ltr);
+
 private:
     string letra;
     int valor;
     int mult_pal;
+    int mult_ltr;
     int posX;
     int posY;
 };

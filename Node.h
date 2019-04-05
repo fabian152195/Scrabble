@@ -12,6 +12,8 @@ public:
         data= nullptr;
         next= nullptr;
         prev= nullptr;
+        mult_pal=1;
+        mult_ltr=1;
     };
 
     Node(T valor){
@@ -44,10 +46,28 @@ public:
         Node::prev = prev;
     }
 
+    int getMult_pal() const {
+        return mult_pal;
+    }
+
+    void setMult_pal(int mult_pal) {
+        Node::mult_pal = mult_pal;
+    }
+
+    int getMult_ltr() const {
+        return mult_ltr;
+    }
+
+    void setMult_ltr(int mult_ltr) {
+        Node::mult_ltr = mult_ltr;
+    }
+
 private:
     T data;
     Node<T>* next;
     Node<T>* prev;
+    int mult_pal;
+    int mult_ltr;
 };
 
 

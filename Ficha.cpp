@@ -46,6 +46,14 @@ void Ficha::setPosY(int posY) {
     Ficha::posY = posY;
 }
 
+int Ficha::getMult_ltr() const {
+    return mult_ltr;
+}
+
+void Ficha::setMult_ltr(int mult_ltr) {
+    Ficha::mult_ltr = mult_ltr;
+}
+
 
 
 

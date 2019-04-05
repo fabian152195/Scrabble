@@ -1,7 +1,7 @@
 //
 // Created by cvaz on 30/03/19.
 //
-
+#include "TXT_Manager.h"
 #include "Juego.h"
 
 Juego::Juego() {
@@ -11,24 +11,49 @@ Juego::Juego() {
 
 //            ____________
 //___________/Nueva jugada
-void Juego::nuevaJugada(list<Ficha*> jugada) {
+int Juego::nuevaJugada(list<Ficha*> jugada) {
     int eje = valEjes(jugada);
     if(eje>0){
         Ficha* prim_ficha = primerFicha(jugada, eje);
-        list<list<Ficha*>> palabras =identificacion(jugada, prim_ficha, eje);
+        list<list<Ficha*>> palabras_fichas =identificacion(jugada, prim_ficha, eje);
+        list<string> palabras = strCreator(palabras_fichas);
         if(valPalabras(palabras)){
-            int puntaje = calcPts(palabras);
+            int puntaje = calcPts(palabras_fichas);
+            return puntaje;
         }
+        else{
+            return 0;
+        }
+    }
+    else{
+        return 0;
     }
 }
 
 //            _________________________________
 //___________/Llena la matriz 15x15 con nullptr
 void Juego::llenarMatriz() {
+    int lista_ctr=0;
+    int lista[225]={31,11,11,12,11,11,11,31,11,11,11,12,11,11,31,
+            11,21,11,11,11,13,11,11,11,13,11,11,11,21,11,
+            11,11,21,11,11,11,12,11,12,11,11,11,21,11,11,
+            12,11,11,21,11,11,11,12,11,11,11,21,11,11,12,
+            11,11,11,11,21,11,11,11,11,11,21,11,11,11,11,
+            11,13,11,11,11,13,11,11,11,13,11,11,11,13,11,
+            11,11,12,11,11,11,12,11,12,11,11,11,12,11,11,
+            31,11,11,12,11,11,11,21,11,11,11,12,11,11,31,
+            11,11,12,11,11,11,12,11,12,11,11,11,12,11,11,
+            11,13,11,11,11,13,11,11,11,13,11,11,11,13,11,
+            11,11,11,11,21,11,11,11,11,11,21,11,11,11,11,
+            12,11,11,21,11,11,11,12,11,11,11,21,11,11,12,
+            11,11,21,11,11,11,12,11,12,11,11,11,21,11,11,
+            11,21,11,11,11,13,11,11,11,13,11,11,11,21,11,
+            31,11,11,12,11,11,11,31,11,11,11,12,11,11,31};
     for(int i=0; i<15;i++){
         DoublyLinkedList<Ficha*> columna;
         for(int j=0; j<15; j++){
-            columna.addData(nullptr);
+            columna.addData(nullptr, lista[lista_ctr]/10, lista[lista_ctr]%10);
+            lista_ctr++;
         }
         matriz_fichas.addData(columna);
     }
@@ -40,6 +65,8 @@ void Juego::posicionarFichas(list<Ficha*> fichas){
     Ficha* new_valor = fichas.front();
     while(!fichas.empty()){
         matriz_fichas.findData(new_valor->getPosX())->getData().findData(new_valor->getPosY())->setData(new_valor);
+        new_valor->setMult_pal(matriz_fichas.findData(new_valor->getPosX())->getData().findData(new_valor->getPosY())->getMult_pal());
+        new_valor->setMult_ltr(matriz_fichas.findData(new_valor->getPosX())->getData().findData(new_valor->getPosY())->getMult_ltr());
         fichas.pop_front();
     }
 }
@@ -196,29 +223,48 @@ list<list<Ficha*>> Juego::identificacion(list<Ficha*> fichas, Ficha* primFicha, 
     }
 }
 
+list<string> Juego::strCreator(list<list<Ficha *>> fichas) {
+    list<string> palabras;
+    while(!fichas.empty()){
+        string new_pal;
+        list<Ficha*> listaFichas=fichas.front();
+        while(!listaFichas.empty()){
+            new_pal+=listaFichas.front()->getLetra();
+        }
+        palabras.push_back(new_pal);
+        fichas.pop_front();
+    }
+    return palabras;
+}
+
 //            ________________
 //___________/Valida palabras
-bool Juego::valPalabras(list<list<Ficha *>> palabras) {
+bool Juego::valPalabras(list<string> palabras) {
     bool res=true;
     while(!palabras.empty()){
-        //if(funcion que llama a validacion de palabras):
-            //res=false;
-            //break
-        //else{
-            //palabras.pop_front
-        //}
+        if(buscador->busqueda(palabras.front())){
+            palabras.pop_front();
+        }
+        else{
+            res=false;
+            break;
+        }
+        return res;
     }
 }
+
+
 
 //            _____________________
 //___________/Calculo puntaje total
 int Juego::calcPts(list<list<Ficha*>> palabras) {
     int puntaje=0;
+    int multiplicador;
     while(!palabras.empty()){
         list<Ficha*> palabra = palabras.front();
         int pts_temp=0;
         while(!palabra.empty()){
-            pts_temp+=palabra.front()->getValor();
+            pts_temp+=(palabra.front()->getValor()*palabra.front()->getMult_ltr());
         }
         puntaje+=(pts_temp*palabra.front()->getMult_pal());
     }
