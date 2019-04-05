@@ -3,16 +3,12 @@
 ./client/.idea
 ./server/.idea
 
+server/cmake-build-debug/
+
 build-Scrabble-Desktop_Qt_5_12_0_GCC_64bit2-Debug/
 
-server/cmake-build-debug/CMakeFiles/server\.dir/
-
-client/\.idea/
+*.autosave
 
 server/\.idea/
 
-server/cmake-build-debug/CMakeFiles/3\.13\.2/
-
-server/cmake-build-debug/
-
-*.autosave
+client/\.idea/
