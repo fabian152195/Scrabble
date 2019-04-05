@@ -1,24 +1,18 @@
 ./build-Scrabble-Desktop_Qt_5_12_0_GCC_64bit2-Debug
 ./build-Scrabble-Desktop_Qt_5_12_1_GCC_64bit-Default 
-./build-Scrabble-Desktop_Qt_5_12_0_GCC_64bit2-Debug/Makefile
-./client/.idea/workspace.xml
-./server/.idea/workspace.xml
-./server/cmake-build-debug/CMakeFiles
 ./client/.idea
 ./server/.idea
-./server/cmake-build-debug/*
-./server/cmake-build-debug/*
-
-server/\.idea/
 
 build-Scrabble-Desktop_Qt_5_12_0_GCC_64bit2-Debug/
 
+server/cmake-build-debug/CMakeFiles/server\.dir/
+
 client/\.idea/
 
-Scrabble/Scrabble\.pro
+server/\.idea/
 
-server/cmake-build-debug/CMakeFiles/
+server/cmake-build-debug/CMakeFiles/3\.13\.2/
 
 server/cmake-build-debug/
 
-server/CMakeLists\.txt
+*.autosave

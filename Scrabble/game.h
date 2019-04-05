@@ -6,7 +6,6 @@
 #include "listamano.h"
 #include "ficha.h"
 #include "list.h"
-#include <QThread>
 
 using namespace std;
 
@@ -21,7 +20,6 @@ class Game : public QDialog
     Q_OBJECT
 
 public:
-    QThread *listener = new QThread();
     /**
      * Tengo que crear las 15x15 casillas en cada lugar correspondiente en el builder
     */
@@ -54,7 +52,6 @@ private slots:
 private:
     Tablero *tablero; /** Widget del tablero donde se van a poner las fichas*/
     Ui::Game *ui;
-    bool my_turn = false;
     QString player_name;
     int player_points;
     int remaining;
