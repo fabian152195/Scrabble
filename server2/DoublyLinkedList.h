@@ -5,15 +5,21 @@
 #ifndef PROYECTO_I_DOUBLYLINKEDLIST_H
 #define PROYECTO_I_DOUBLYLINKEDLIST_H
 
+#include <iostream>
 #include "Ficha.h"
 #include "Node.h"
+#include <iostream>
+#include <cstdlib>
+#include <cstring>
 
+using namespace std;
 template <typename T>
 class DoublyLinkedList {
 public:
     DoublyLinkedList(){
-        head = nullptr;
-        tail = nullptr;
+        head= nullptr;
+        tail= nullptr;
+        size = 0;
     }
 
     /** Agrega un valor a la lista
@@ -26,9 +32,15 @@ public:
             tail=nuevoNod;
         } else {
             tail->setNext(nuevoNod);
+            nuevoNod->setPrev(tail);
             tail = nuevoNod;
         }
         size+=1;
+
+    };
+
+    int getSize(){
+        return size;
     };
 
     /** Agrega un valor a la lista
@@ -38,11 +50,14 @@ public:
      * */
     void addData(T value, int multP, int multL){
         Node<T>* nuevoNod = new Node<T>(value);
+        nuevoNod->setMult_pal(multP);
+        nuevoNod->setMult_ltr(multL);
         if(head== nullptr){
             head=nuevoNod;
             tail=nuevoNod;
         } else {
             tail->setNext(nuevoNod);
+            nuevoNod->setPrev(tail);
             tail = nuevoNod;
         }
         size+=1;
@@ -68,15 +83,43 @@ public:
         size+=1;
     };
 
+    void deleteDataByLetter(string value){
+        Node<T>* actual = head;
+        if(strncmp(((Ficha*)(actual->getData()))->getLetra().c_str(),value.c_str(),3)==0){
+            head = head->getNext();
+            size--;
+            return;
+        }
+        while(actual->getNext() != nullptr && actual->getNext()->getNext() != nullptr && strncmp(value.c_str(), (((Node<Ficha*>)(actual->getNext())->getData()).getData())->getLetra().c_str(),3)==0){
+            actual=actual->getNext();
+        }
+        if(actual->getNext() == nullptr){
+            cout<<"Not found"<<flush<<endl;
+            return;
+        }else if(actual->getNext()->getNext() == nullptr && ((((Node<Ficha*>)(actual->getNext())->getData()).getData())->getLetra().c_str(),3)==0){
+            actual->setNext(nullptr);
+        }else if(((((Node<Ficha*>)(actual->getNext())->getData()).getData())->getLetra().c_str(),3)==0){
+            actual->setNext(actual->getNext()->getNext());
+        }
+        size-=1;
+    };
+
     /**Elimina datos de la lista
      * @param value Valor a quitar de la lista
      * */
     void deleteData(T value){
         Node<T>* actual = head;
-        while(actual->getNext()!=value){
+        while(actual->getNext() != nullptr && actual->getNext()->getNext() != nullptr && actual->getNext()->getData()!=value){
             actual=actual->getNext();
         }
-        actual->setNext(actual->getNext().getNext());
+        if(actual->getNext() == nullptr){
+            cout<<"Not found"<<flush<<endl;
+            return;
+        }else if(actual->getNext()->getNext() == nullptr && actual->getNext()->getData() == value){
+            actual->setNext(nullptr);
+        }else if(actual->getNext()->getData()==value){
+            actual->setNext(actual->getNext()->getNext());
+        }
         size-=1;
     };
 
@@ -86,15 +129,18 @@ public:
      * @return La primera aparicion del dato o nullptr
      * */
     Node<T>* findData(int pos){
-        if(pos>size){
-            return nullptr;
+        if(pos==14){
+            return tail;
         }
-        else{
+        else if(0<=pos<14){
             Node<T>* actual = head;
             for(int i=0; i<pos; i++){
                 actual=actual->getNext();
             }
             return actual;
+        }
+        else{
+            return nullptr;
         }
     };
 

@@ -23,6 +23,9 @@
 #include "Room.h"
 #include "Player.h"
 #include "Juego.h"
+#include "jsonparser.h"
+#include "jsonparser.h"
+#include "DoublyLinkedList.h"
 
 #define TRUE   1
 #define FALSE  0
@@ -61,10 +64,13 @@ public:
      * @param mensaje Mensaje que se quiere enviar
      * */
     int broadcoast(int client_socket[5], char * mensaje);
+    void broadcoast(list<Player*> players, const char *mensaje);
 
 private:
     list<Room> rooms;
     Room *room;
+    void asignar(Player *player, int n, Juego juego);
+    void asignarF(Player *player, Juego juego);
 
 
 };

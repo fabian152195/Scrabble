@@ -1,27 +1,26 @@
 #include "jsonparser.h"
-#include <QtDebug>
 #include <iostream>
+#include <cstring>
 
 JsonParser::JsonParser()
 {
 
 }
 
-string JsonParser::toJson(Ficha fichas[], int size){
+
+// Pasa de array de fichas a json
+string JsonParser::toJson(FichaToSend fichas[], int size){
     string result = "[";
-    //int array_size = sizeof(fichas)/sizeof(int);  //Porque son punteros
    // qDebug() << sizeof (int);
     for(int i=0;i<size;i++){
-        result = result + "{letra:\"" + fichas[i].getLetra().toStdString()+"\""
-                +",x:"+to_string(int(fichas[i].getPos().x()/53))+
-                ",y:"+to_string(int(fichas[i].getPos().y()/33))+
+        result = result + "{letra:\"" + fichas[i].getLetra()+"\""
+                +",x:"+to_string(fichas[i].getX())+
+                ",y:"+to_string(fichas[i].getY())+
                 +"}";
         if(i!=size-1){
             result+=",";
         }
     }
-    result = result + "]";
-    cout<<result<<flush<<endl;
     return result;
 }
 
@@ -31,14 +30,14 @@ FichaToSend JsonParser::toFicha(const char input[]){
         if(input[i] == '{'){
             i+=8;
             newFicha.setLetra(string(1,input[i])); // Poniendo letra
-            qDebug() << input[i];
+//            qDebug() << input[i];
             i+=5; //i = primer numero de x
             string x_num;
             while(input[i]!=','){
                 x_num += (input[i]);
                 i++;
             }
-            newFicha.setX(std::atoi(x_num.c_str())*53.4); // Poniendo x
+            newFicha.setX(std::atoi(x_num.c_str())); // Poniendo x
             // here input[i] = ,
             i+=3; // i = primer numero de y
             string y_num;
@@ -46,7 +45,7 @@ FichaToSend JsonParser::toFicha(const char input[]){
                 y_num += input[i];
                 i++;
             }
-            newFicha.setY(std::atoi(y_num.c_str())*33.4); // Poniendo y
+            newFicha.setY(std::atoi(y_num.c_str())); // Poniendo y
             // input[i] = }
         }
     }

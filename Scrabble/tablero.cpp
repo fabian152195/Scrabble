@@ -14,8 +14,9 @@
 list<Ficha> Tablero::toDraw = List();
 list<Ficha> Tablero::toErase = List();
 
-Tablero::Tablero(QWidget* parent):QWidget(parent)
+Tablero::Tablero(bool *turn, QWidget* parent):QWidget(parent)
 {
+    this->turn = turn;
     setMinimumSize(800,500);
     setMaximumSize(800,500);
     setAcceptDrops(true);
@@ -32,7 +33,7 @@ void Tablero::dropEvent(QDropEvent *event){
     x = event->pos().x()/53*53.4;
     y = event->pos().y()/33*33.4;
 
-    if(event->mimeData()->hasFormat("image") && disponibles[x/53][y/33]){ 
+    if(event->mimeData()->hasFormat("image") && disponibles[x/53][y/33] && *turn){
         qDebug()<<x<<","<<y;
         qDebug()<<x/53<<","<<y/33;
         qDebug()<<"Debug1";
@@ -71,7 +72,7 @@ void Tablero::dragEnterEvent(QDragEnterEvent *event)  // Se dispara cuando se es
     y = event->pos().y()/33
             *33.4;
 
-    if (event->mimeData()->hasFormat("image") &&disponibles[x/53][y/33])
+    if (event->mimeData()->hasFormat("image") &&disponibles[x/53][y/33]&&*turn)
         event->accept();
     else
         event->ignore();
@@ -88,7 +89,7 @@ void Tablero::dragMoveEvent(QDragMoveEvent *event)  // Se efectua cuando estoy m
     x = event->pos().x()/53*53.4;
     y = event->pos().y()/33*33.4;
 
-    if (event->mimeData()->hasFormat("image") && disponibles[x/53][y/33]){  // El drag trae una pieza y no hay piezas donde tengo el mouse?
+    if (event->mimeData()->hasFormat("image") && disponibles[x/53][y/33]&& turn){  // El drag trae una pieza y no hay piezas donde tengo el mouse?
 
 
                 event->accept();

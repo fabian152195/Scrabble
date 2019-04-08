@@ -30,7 +30,7 @@ void Player::setPuntaje(int puntaje) {
     this->puntaje = puntaje;
 }
 
-list<Ficha*> Player::getFichas(){
+DoublyLinkedList<Ficha*> Player::getFichas(){
     return fichas;
 }
 
@@ -42,7 +42,7 @@ void Player::setTurno(bool turno) {
     this->turno = turno;
 }
 
-void Player::setFichas( list<Ficha *> &fichas) {
+void Player::setFichas( DoublyLinkedList<Ficha *> &fichas) {
     Player::fichas = fichas;
 }
 

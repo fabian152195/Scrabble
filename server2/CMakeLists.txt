@@ -26,7 +26,12 @@ add_executable(server2
     server.cpp
     server.h
     TXT_Manager.cpp
-    TXT_Manager.h)
+    TXT_Manager.h
+        fichatosend.cpp
+        fichatosend.h
+        jsonparser.cpp
+        jsonparser.h
+        )
 add_subdirectory(lib/googletest-master)
 
 include_directories(lib/googletest-master/googletest/include)

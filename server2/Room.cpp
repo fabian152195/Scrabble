@@ -10,7 +10,7 @@ Room::Room(int code){
 
 Room::Room() {}
 
-void Room::addPlayer(Player player) {
+void Room::addPlayer(Player *player) {
     players.push_back(player);
 }
 
@@ -22,7 +22,7 @@ int Room::getCode(){
     return code;
 }
 
-list<Player> Room::getPlayers() {
+list<Player*> Room::getPlayers() {
     return players;
 }
 

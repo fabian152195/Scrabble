@@ -17,6 +17,7 @@ public:
      * @param val valor de la letra
      * */
     Ficha(string lttr, int val);
+    Ficha(string lttr, int posx, int posy);
     const string &getLetra() const;
     int getValor() const;
     int getMult_pal() const;

@@ -17,7 +17,7 @@ int main(int argc, char *argv[])
     Ficha ficha2 = Ficha("B", QPoint(1,2));
     Ficha fichas[] = {ficha1, ficha2};
 
-    std::cout << JsonParser::toJson(fichas);
+//    std::cout << JsonParser::toJson(fichas);
 
     list<FichaToSend> probe = JsonParser::toListFicha("[{letra:\"A\",x:255,y:255},{letra:\"B\",x:1,y:1}]");
 

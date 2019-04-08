@@ -2,26 +2,89 @@
 // Created by cvaz on 30/03/19.
 //
 //#include "TXT_Manager.h"
+#include <cstring>
 #include "Juego.h"
 
 Juego::Juego() {
     saco_fichas = new ListaFichas();
     llenarMatriz();
+    jugador_activo = 0;
 }
 
-Juego::Juego(list<Player> jugadores) {
+Juego::Juego(list<Player*> jugadores) {
     saco_fichas = new ListaFichas();
     llenarMatriz();
-    this->jugadores = &jugadores;
+    this->jugadores = jugadores;
+    jugador_activo = 0;
+}
+
+int Juego::getJugadorActivo() {
+    return jugador_activo;
 }
 
 void Juego::asignarFichas(int ctd_fichas, Player *jugador) {
-    list<Ficha*> nuev_fichas = jugador->getFichas();
+    DoublyLinkedList<Ficha*> nuev_fichas = jugador->getFichas();
     while(ctd_fichas>0){
         if(saco_fichas->getFichas().empty()){
             break;
         }
-        nuev_fichas.push_back(saco_fichas->getFichas().front());
+        nuev_fichas.addData(saco_fichas->getFichas().front());
+        ctd_fichas--;
+        saco_fichas->getFichas().pop_front();
+    }
+    jugador->setFichas(nuev_fichas);
+}
+
+void Juego::agregarFichas(Player *jugador, int n){
+    DoublyLinkedList<Ficha*> nuev_fichas = jugador->getFichas();
+    while(n>0){
+        if(saco_fichas->getFichas().empty()){
+            break;
+        }
+        nuev_fichas.addData(saco_fichas->getFichas().front());
+        n--;
+        saco_fichas->getFichas().pop_front();
+    }
+    jugador->setFichas(nuev_fichas);
+}
+
+void Juego::asignarF(Player *jugador) {
+    DoublyLinkedList<Ficha*> nuev_fichas = jugador->getFichas();
+    int n = 3;
+    int x =3;
+    string choose;
+    while(n>0){
+             switch(n){
+                case 3:
+                    choose="S";
+                    break;
+                case 2:
+                    choose = "O";
+                    break;
+                case 1:
+                    choose = "L";
+                    break;
+            }
+        if(saco_fichas->getFichas().empty()){
+            break;
+        }
+        for(Ficha *ficha : saco_fichas->getFichas()){
+            if(strncmp(ficha->getLetra().c_str(),choose.c_str(),2)==0){
+                nuev_fichas.addData(ficha);
+                saco_fichas->getFichas().remove(ficha);
+                n--;
+                break;
+            }
+        }
+    }
+    int i = 7-x;
+    while(i>0){
+        if(saco_fichas->getFichas().empty()){
+            break;
+        }
+        nuev_fichas.addData(saco_fichas->getFichas().front());
+        saco_fichas->getFichas().pop_front();
+        i--;
     }
     jugador->setFichas(nuev_fichas);
 }
@@ -51,7 +114,8 @@ int Juego::nuevaJugada(list<Ficha*> jugada) {
 //___________/Llena la matriz 15x15 con nullptr
 void Juego::llenarMatriz() {
     int lista_ctr=0;
-    int lista[225]={31,11,11,12,11,11,11,31,11,11,11,12,11,11,31,
+    int lista[225]={
+            31,11,11,12,11,11,11,31,11,11,11,12,11,11,31,
             11,21,11,11,11,13,11,11,11,13,11,11,11,21,11,
             11,11,21,11,11,11,12,11,12,11,11,11,21,11,11,
             12,11,11,21,11,11,11,12,11,11,11,21,11,11,12,
@@ -79,13 +143,17 @@ void Juego::llenarMatriz() {
 //            ___________________________
 //___________/Ubicacion fichas en matriz
 void Juego::posicionarFichas(list<Ficha*> fichas){
-    Ficha* new_valor = fichas.front();
     while(!fichas.empty()){
+        Ficha* new_valor = fichas.front();
         matriz_fichas.findData(new_valor->getPosX())->getData().findData(new_valor->getPosY())->setData(new_valor);
         new_valor->setMult_pal(matriz_fichas.findData(new_valor->getPosX())->getData().findData(new_valor->getPosY())->getMult_pal());
         new_valor->setMult_ltr(matriz_fichas.findData(new_valor->getPosX())->getData().findData(new_valor->getPosY())->getMult_ltr());
         fichas.pop_front();
     }
+}
+
+void Juego::setJugadorActivo(int jugadorActivo) {
+    this->jugador_activo = (this->jugador_activo + jugadorActivo)%4;
 }
 
 //            ______________________________
@@ -98,7 +166,8 @@ int Juego::valEjes(list<Ficha*> lis_fichas) {        //funcion que valida que to
         return res;
     }
     else{
-        if(refY==lis_fichas.back()->getPosY()){
+        lis_fichas.pop_front();
+        if(refY==lis_fichas.front()->getPosY()){
             res=1;
             while(!lis_fichas.empty()){
                 if(refY==lis_fichas.front()->getPosY()){
@@ -109,7 +178,8 @@ int Juego::valEjes(list<Ficha*> lis_fichas) {        //funcion que valida que to
                     break;
                 }
             }
-        } else if(refX==lis_fichas.back()->getPosX()){
+        } else if(refX==lis_fichas.front()->getPosX()){
+            res=2;
             while(!lis_fichas.empty()){
                 if(refX==lis_fichas.front()->getPosX()){
                     lis_fichas.pop_front();
@@ -150,93 +220,95 @@ Ficha* Juego::primerFicha(list<Ficha*> fichas, int eje) {       //Determina la p
     return primFicha;
 }
 
-//            ___________________________
+//            _______CHINOOOO____________________
 //___________/Identificacion de palabras               SE PUEDE CAMBIAR PRIMFICHA A UN X y UN Y
 list<list<Ficha*>> Juego::identificacion(list<Ficha*> fichas, Ficha* primFicha, int eje) {      //identifica todas las palabras que debe validar
     posicionarFichas(fichas);
     list<list<Ficha *>> palabras_formadas;
-    if (eje == 1) {
+    if (eje == 2){
         list<Ficha *> palabra;
         Node<Ficha *> *nod_ref = matriz_fichas.findData(primFicha->getPosX())->getData().findData(primFicha->getPosY());
-
-        while (nod_ref->getPrev()->getData() !=nullptr) {                 //Ubico el nodo mas arriba a partir de primFicha
+        //____Determina la palabra principal____
+       //Ubico el nodo mas superior a partir de primFicha
+        while (nod_ref->getPrev()!= nullptr && nod_ref->getPrev()->getData() !=nullptr) {
             nod_ref = nod_ref->getPrev();
         }
         Node<Ficha *> *tmp = nod_ref;
-
-        while (tmp->getNext()->getData() !=nullptr) {                    //Anado fichas a palabra hasta que no haya siguiente
+        //Recorro de arriba hasta el ultimo nodo de abajo
+        while (tmp!=nullptr && tmp->getData() !=nullptr) {
             palabra.push_back(tmp->getData());
             tmp = tmp->getNext();
         }
         palabras_formadas.push_back(palabra);
         tmp = nod_ref;
-
-        while (tmp->getNext()->getData() !=nullptr) {                   //Identifico palabras en X y las anado a la lista final
+        //____Identifica palabras en el eje contrario___
+        //Recorro de abajo hasta arriba
+        while (tmp != nullptr && tmp->getData() != nullptr) {
             list<Ficha *> palabra;
-
-            while (matriz_fichas.findData(tmp->getData()->getPosX() - 1)->getData().findData(tmp->getData()->getPosY())->getData() != nullptr){      //reviso si en la columna anterior hay algo
-                if(matriz_fichas.findData(tmp->getData()->getPosX() - 1)== nullptr){
-                    break;
-                }
+            //Ubico el nodo de referencia mas a la izquierda posible
+            while (matriz_fichas.findData(tmp->getData()->getPosX() - 1) != nullptr && matriz_fichas.findData(tmp->getData()->getPosX() - 1)->getData().findData(tmp->getData()->getPosY())->getData() != nullptr){
                 tmp = matriz_fichas.findData(tmp->getData()->getPosX() - 1)->getData().findData(tmp->getData()->getPosY());
-            }
-
-            while (matriz_fichas.findData(tmp->getData()->getPosX())->getData().findData(tmp->getData()->getPosY()) !=nullptr) {                                          //empiezo a recorrer de izq a der anadiendo fichas
-                palabra.push_back(tmp->getData());
-                if(matriz_fichas.findData(tmp->getData()->getPosX()+1)== nullptr){
+                if(tmp->getData()== nullptr){
                     break;
                 }
-                tmp = matriz_fichas.findData(tmp->getData()->getPosX() +1)->getData().findData(tmp->getData()->getPosY());
+            }
+            //Anado fichas a la palabra de izq a der
+            while (matriz_fichas.findData(tmp->getData()->getPosX()) != nullptr && matriz_fichas.findData(tmp->getData()->getPosX())->getData().findData(tmp->getData()->getPosY()) !=nullptr){
+                palabra.push_back(tmp->getData());
+                tmp = matriz_fichas.findData(tmp->getData()->getPosX() + 1)->getData().findData(tmp->getData()->getPosY());
+                if(tmp->getData()== nullptr){
+                    break;
+                }
+
             }
             palabras_formadas.push_back(palabra);
             nod_ref = nod_ref->getNext();                              //nod_ref cambia a la siguiente letra de la hilera principal y vuelve a empezar
             tmp = nod_ref;
         }
         return palabras_formadas;
-    } else {
+    } else{
         list<Ficha *> palabra;
         Node<Ficha *> *nod_ref = matriz_fichas.findData(primFicha->getPosX())->getData().findData(primFicha->getPosY());
-
-        while (matriz_fichas.findData(nod_ref->getData()->getPosX() - 1)->getData().findData(nod_ref->getData()->getPosY())->getData() !=       //Determino el nodo de referencia
+        //___Determina la palabra principal___
+        //Determina el nodo de referencia mas a la izq
+        while (matriz_fichas.findData(nod_ref->getData()->getPosX() - 1)!=nullptr && matriz_fichas.findData(nod_ref->getData()->getPosX() - 1)->getData().findData(nod_ref->getData()->getPosY())->getData() !=       //Determino el nodo de referencia
                nullptr) {
-            if(matriz_fichas.findData(nod_ref->getData()->getPosX() - 1)== nullptr){
+            nod_ref = matriz_fichas.findData(nod_ref->getData()->getPosX() - 1)->getData().findData(nod_ref->getData()->getPosY());
+            if(nod_ref->getData()== nullptr){
                 break;
             }
-            nod_ref = matriz_fichas.findData(nod_ref->getData()->getPosX() - 1)->getData().findData(nod_ref->getData()->getPosY());
         }
         Node<Ficha*> *tmp = nod_ref;
-
-        while (matriz_fichas.findData(nod_ref->getData()->getPosX()+1)->getData().findData(nod_ref->getData()->getPosY())->getData() !=       //Recorro de izq a der la palabra principal
-               nullptr) {                    //Anado fichas a palabra hasta que la siguiente columna no tenga un valor
+        //Anade fichas a la palabra de izq a der
+        while (matriz_fichas.findData(tmp->getData()->getPosX())!=nullptr && matriz_fichas.findData(tmp->getData()->getPosX())->getData().findData(tmp->getData()->getPosY())->getData() != nullptr) {
             palabra.push_back(tmp->getData());
-            if(matriz_fichas.findData(nod_ref->getData()->getPosX()+1)== nullptr){
+            tmp = matriz_fichas.findData(tmp->getData()->getPosX() + 1)->getData().findData(tmp->getData()->getPosY());
+            if(tmp->getData()== nullptr){
                 break;
             }
-            tmp = matriz_fichas.findData(nod_ref->getData()->getPosX() + 1)->getData().findData(nod_ref->getData()->getPosY());
         }
         palabras_formadas.push_back(palabra);
         tmp=nod_ref;
-
-        while(matriz_fichas.findData(tmp->getData()->getPosX())->getData().findData(nod_ref->getData()->getPosY())->getData() !=       //Determino el nodo de referencia
-              nullptr){
+        //___Determina las palabras en el eje contrario___
+        while(matriz_fichas.findData(tmp->getData()->getPosX()) != nullptr && matriz_fichas.findData(tmp->getData()->getPosX())->getData().findData(tmp->getData()->getPosY())->getData() != nullptr){
             list<Ficha *> palabra;
-
-            while(matriz_fichas.findData(tmp->getData()->getPosX())->getData().findData(nod_ref->getData()->getPosY()-1)->getData() !=       //Determino el nodo de referencia para arriba
-                  nullptr){
-                tmp=matriz_fichas.findData(tmp->getData()->getPosX())->getData().findData(nod_ref->getData()->getPosY()-1);
+            //Determino el nodo de referencia mas superior
+            while(tmp->getPrev()!= nullptr && tmp->getPrev()->getData()!= nullptr){
+                tmp=tmp->getPrev();
             }
-
-            while(tmp->getData()!= nullptr){                                        //recorre a arriba a abajo identificando palabras
+            //Anade fichas de arriba a abajo
+            while(tmp!= nullptr && tmp->getData()!= nullptr){
                 palabra.push_back(tmp->getData());
                 tmp=tmp->getNext();
             }
             palabras_formadas.push_back(palabra);
-            if(matriz_fichas.findData(nod_ref->getData()->getPosX() + 1)== nullptr){
-                return palabras_formadas;
-            }
             nod_ref=matriz_fichas.findData(nod_ref->getData()->getPosX() + 1)->getData().findData(nod_ref->getData()->getPosY());
             tmp=nod_ref;
+            if(tmp->getData()== nullptr){
+                break;
+            }
         }
+        return palabras_formadas;
     }
 }
 
@@ -247,6 +319,7 @@ list<string> Juego::strCreator(list<list<Ficha *>> fichas) {
         list<Ficha*> listaFichas=fichas.front();
         while(!listaFichas.empty()){
             new_pal+=listaFichas.front()->getLetra();
+            listaFichas.pop_front();
         }
         palabras.push_back(new_pal);
         fichas.pop_front();
@@ -256,6 +329,7 @@ list<string> Juego::strCreator(list<list<Ficha *>> fichas) {
 
 //            ________________
 //___________/Valida palabras
+// Palabras llega mal...
 bool Juego::valPalabras(list<string> palabras) {
     bool res=true;
     while(!palabras.empty()){
@@ -276,14 +350,19 @@ bool Juego::valPalabras(list<string> palabras) {
 //___________/Calculo puntaje total
 int Juego::calcPts(list<list<Ficha*>> palabras) {
     int puntaje=0;
-    int multiplicador;
+    int multiplicador=1;
     while(!palabras.empty()){
+        multiplicador = 1;
         list<Ficha*> palabra = palabras.front();
         int pts_temp=0;
-        while(!palabra.empty()){
+        while(palabra.front()!= nullptr && palabra.empty()==false){
             pts_temp+=(palabra.front()->getValor()*palabra.front()->getMult_ltr());
+            multiplicador=multiplicador*palabra.front()->getMult_pal();
+            palabra.pop_front();
         }
-        puntaje+=(pts_temp*palabra.front()->getMult_pal());
+        puntaje+=pts_temp*multiplicador;
+      // CHINO  puntaje+=(pts_temp*palabra.front()->getMult_pal())
+    palabras.pop_front();
     }
     return puntaje;
 }

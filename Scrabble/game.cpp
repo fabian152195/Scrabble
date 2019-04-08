@@ -9,10 +9,30 @@ List Game::nuevas = List();
 
 Game::Game(QString name,QImage my_image,QWidget *parent):QDialog(parent), ui(new Ui::Game){
     ui->setupUi(this);
-
+    *my_turn = false;
     /* Setup: puesta en punto con el server
      * Paseme mi jugador, sus puntos y la cantidad de fichas que hay
 */
+    // Conectar slots y signals
+    listen = new QThread();
+    Listener *listener = new Listener();
+    listener->moveToThread(listen);  // Se mueve al nuevo hilo
+    connect(listen, &QThread::finished, listener, &QObject::deleteLater);  // Borra listener cuanod termina hilo
+    connect(this, &Game::startListen, listener, &Listener::listen); // linkea la sennal con la que inicia el escucha
+    // De aqui en mas se conectan las sennales de listener con los slots de game
+    // para realizar acciones
+
+    // Para pasar parametros los signals y slots correspondientes tienen que tener
+    // el mismo tipo y cantidad de parametros
+    connect(listener, &Listener::addFichas, this, &Game::addFichas);
+    connect(listener, &Listener::modTurn, this, &Game::modTurn);
+    connect(listener, &Listener::addPuntaje, this, &Game::addPuntaje);
+    connect(listener, &Listener::confirmacionPalabra, this, &Game::confirmacionPalabra);
+    connect(listener, &Listener::updateM, this, &Game::updateM);
+
+    listen->start();  //Inicia el hilo
+    emit startListen();
+
     update();
 
     ui->player_name->setText(name);
@@ -21,22 +41,21 @@ Game::Game(QString name,QImage my_image,QWidget *parent):QDialog(parent), ui(new
     // Mano
     mano = new ListaMano(this);
     mano->setGeometry(250,530,321,50);
-    mano->addFicha(QPoint(0,0), QChar(
-                       'A'));
-    mano->addFicha(QPoint(0,0), "B");
-    mano->addFicha(QPoint(0,0), "_");
+
     //Tablero
-    tablero = new Tablero(this);
+    tablero = new Tablero(my_turn, this);
     tablero->setGeometry(0,0,800,500);
-
-
-
 }
 
 Game::~Game(){
     delete ui;
     delete tablero;
     delete mano;
+}
+
+void Game::modTurn(bool turn){
+    cout<<"Changing turn"<<flush<<endl;
+    *my_turn = turn;
 }
 
 
@@ -52,8 +71,41 @@ void Game::update(){
     //Tambien deberia actualizarse la mano
 }
 
+void Game::addFichas(list<Ficha> fichas){
+    for(Ficha ficha:fichas){
+        mano->addFicha(ficha.getPixmap(),ficha.getPos(),ficha.getLetra());
+    }
+    tablero->update();
+}
+
 void Game::on_label_2_clicked(){
-   bool validation = sendServer();
+    const int tmp = nuevas.size();
+    Ficha nuevas_arr[tmp];
+    int i=0;
+    for(Ficha ficha:nuevas){
+        nuevas_arr[i] = ficha;
+        i++;
+    }
+    string message = JsonParser::toJson(nuevas_arr, tmp);
+    Client::sendToServer(message.c_str());
+
+    // De aqui a abajo en un slot
+}
+
+void Game::addPuntaje(int puntaje){
+    int points = ui->player_points->text().toInt()+puntaje;
+    ui->player_points->setNum(points);
+}
+
+void Game::updateM(list<Ficha> fichas){
+    for(Ficha ficha:fichas){
+        Tablero::toDraw.push_back(ficha);
+    }
+    tablero->update();
+}
+
+void Game::confirmacionPalabra(bool valid){
+   bool validation = valid;
    if(validation){
        QMessageBox *success = new QMessageBox(this);
        success->setText("Su palabra ha sido confirmada!");

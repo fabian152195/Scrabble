@@ -161,7 +161,7 @@ int server::run() {
                             //rooms.push_back(room);
                             room->setCode(generaCodigo());
                             sendToClient(sd, to_string(room->getCode()).c_str());
-                            this->room->addPlayer(Player(sd, buffer));
+                            this->room->addPlayer(new Player(sd, buffer));
                         }else if(strncmp(buffer, "room_j",6)==0){  //peticion de union
                             cout<<"Joining room!"<<endl;
                             sendToClient(sd,"code");
@@ -172,22 +172,184 @@ int server::run() {
                                 // readFromClient(sd, buffer); // pong
                                 // sendToClient(sd,std::to_string(selected.getCode()).c_str());  // Envia codigo de sala
                                 readFromClient(sd,buffer);  // Pide el nombre
-                                Player new_player = Player(sd, buffer);
+                                Player *new_player = new Player(sd, buffer);
                                 room->addPlayer(new_player);
                                 cout<<"Hay:"<<room->getPlayers().size()<<endl;
-                                if(room->getPlayers().size() == 4){
+                                if(room->getPlayers().size() == 2){
                                     //Empiece el juego hp
                                     cout<< "Ya";
-                                    for(Player player : room->getPlayers()){
-                                        sendToClient(player.getClient(), "play");
+                                    for(Player *player : room->getPlayers()){
+                                        sendToClient(player->getClient(), "play");
+                                        readFromClient(player->getClient(), buffer); // Sincronizando
                                     }
                                     // Aqui inicia el juego
-
+                                    // Setup
                                     Juego juego = Juego(room->getPlayers());
+                                    int j =0;
+                                    for(Player *player : room->getPlayers()){
+                                        if(j==0){
+                                            asignarF(player, juego);
+                                        }else {
+                                            asignar(player, 7, juego);
+                                        }
+                                        if(j==0){
+                                            sendToClient(player->getClient(), "turn");
+                                            readFromClient(player->getClient(), buffer);
+                                            sendToClient(player->getClient(), "true");
+                                            readFromClient(player->getClient(), buffer); // Fin de la orden
+                                        }else{
+                                             sendToClient(player->getClient(), "turn");
+                                            readFromClient(player->getClient(), buffer);
+                                            sendToClient(player->getClient(), "false");
+                                            readFromClient(player->getClient(), buffer); // Fin de la orden
+                                        }
+                                        j++;
+                                    }
+                                    // Gameloop
+                                    bool finished = false;
+                                    int current_client;
+                                    Player *current_player;
+                                    while(!finished){
+                                        // Elijo a quien escuchar (al jugador activo)
+                                        int k =0;
+                                        for(Player *player:room->getPlayers()){
+                                            if(k==juego.getJugadorActivo()){
+                                                current_client = player->getClient();
+                                                current_player = player;
+                                            }
+                                            k++;
+                                        }
+                                        // Recibo jugada
+                                        readFromClient(current_client, buffer);  // Jugada
+                                        string jugada = buffer;
+                                        cout<<"Jugada:"<<buffer<<flush<<endl;
+                                        list<FichaToSend> fichas_recibidas = JsonParser::toListFicha(buffer);
+                                        list<Ficha*> fichas_usadas;  // To do bien hasta aqui
+                                        for(FichaToSend ficha:fichas_recibidas){
+                                            for(int i=0; i<current_player->getFichas().getSize();i++){
+                                                Ficha *ficha_jugador = current_player->getFichas().findData(i)->getData();
+                                                if(strncmp(ficha.getLetra().c_str(),ficha_jugador->getLetra().c_str(), 3)==0){
+                                                    ficha_jugador->setPosX(ficha.getX());
+                                                    ficha_jugador->setPosY(ficha.getY());
+                                                    fichas_usadas.push_back(ficha_jugador);
+                                                    break;
+                                                }
+                                            }
 
-                                    // Asignar fichas a jugadores
-                                    // Asignar turnos
-                                    // Escuchar movimiento del jugador con el turno asignado
+                                        }
+                                        int puntaje;
+                                        puntaje = juego.nuevaJugada(fichas_usadas); // Si es 0 la palabra es denegada, LISTO
+                                        if(puntaje!=0){
+                                            sendToClient(current_client,"valido");  // validacion
+                                            readFromClient(current_client,buffer);
+                                            current_player->setPuntaje(current_player->getPuntaje()+puntaje);
+                                            // Asignar puntaje al jugador actual
+                                            sendToClient(current_client, "addP");
+                                            readFromClient(current_client,buffer);
+                                            sendToClient(current_client, to_string(puntaje).c_str());
+
+                                            // Enviar array nuevas a todos los jugadores, dejarlo de ultimo
+                                            broadcoast(room->getPlayers(), "updateM");
+                                            usleep(10000);
+                                            broadcoast(room->getPlayers(),jugada.c_str());
+                                            //Quitar las fichas usadas al jugador actual
+                                           /* for(FichaToSend ficha:fichas_recibidas){
+                                                std::list<Ficha*>::iterator i = current_player->getFichas().begin();
+                                                while (i != current_player->getFichas().end())
+                                                {
+                                                    if (strncmp((**i).getLetra().c_str(), ficha.getLetra().c_str(), 3)==0)
+                                                    {
+                                                        current_player->getFichas().erase(i++);  // alternatively, i = items.erase(i);
+                                                        break;
+                                                    }
+                                                    else
+                                                    {
+                                                        ++i;
+                                                    }
+                                                }
+                                            }
+                                            */
+                                            DoublyLinkedList<Ficha *> nuev_ficha = DoublyLinkedList<Ficha*>();
+
+                                            DoublyLinkedList<Ficha *> *cochinada = new DoublyLinkedList<Ficha*>();
+                                            *cochinada = current_player->getFichas();
+
+                                            for(int i=0;i<current_player->getFichas().getSize();i++){
+                                                Ficha *ficha_player = current_player->getFichas().findData(i)->getData();
+                                                for(FichaToSend ficha:fichas_recibidas){
+                                                    if(strncmp(ficha_player->getLetra().c_str(), ficha.getLetra().c_str(), 2)==0){
+                                                        cochinada->deleteDataByLetter(ficha_player->getLetra());
+                                                        break;
+                                                    }
+                                                }
+                                            }
+
+                                            current_player->setFichas(*cochinada);
+                                            // Bien hasta aqui, tiene solo la cantidad de fichas que le quedan despues de usarlas
+                                            // Darle mas fichas al jugador actual
+                                            sendToClient(current_client,"addF");
+                                            readFromClient(current_client, buffer);
+                                            juego.agregarFichas(current_player,fichas_recibidas.size());
+                                            FichaToSend ficha_send[7];
+                                            i = 0;
+                                            for(int i=0;i<current_player->getFichas().getSize();i++){
+                                                Ficha *ficha = current_player->getFichas().findData(i)->getData();
+                                                ficha_send[i] = FichaToSend(ficha->getLetra(), ficha->getPosX(), ficha->getPosY());
+                                                i++;
+                                            }
+                                            string message = JsonParser::toJson(ficha_send, 7);
+                                            cout << message << endl << flush;
+                                            sendToClient(current_player->getClient(), message.c_str());
+                                            readFromClient(current_player->getClient(), buffer);   // Fin de la orden
+                                            // Pasar turno
+                                            juego.setJugadorActivo(1);
+                                            i=0;
+                                            for(Player *player:room->getPlayers()){
+                                                if(i==juego.getJugadorActivo()){
+                                                    sendToClient(player->getClient(), "turn");
+                                                    readFromClient(player->getClient(), buffer);
+                                                    sendToClient(player->getClient(), "true");
+                                                    readFromClient(player->getClient(), buffer); // Fin de la orden
+                                                }else{
+                                                    sendToClient(player->getClient(), "turn");
+                                                    readFromClient(player->getClient(), buffer);
+                                                    sendToClient(player->getClient(), "false");
+                                                    readFromClient(player->getClient(), buffer); // Fin de la orden
+                                                }
+                                                i++;
+                                            }
+                                        }else{
+                                            // mensaje de error
+                                        }
+
+                                        //break;  // comentar
+                                       /*
+                                        * Todo:
+                                        *   - Recibir jugada
+                                        *   - Procesar jugada
+                                        *   - Si esta bien:
+                                        *     x Decirle al cliente activo correcta
+                                        *     x Modificar la matriz local
+                                        *     x Broadcast de la matriz modificada
+                                        *   - Si esta mal:
+                                        *     x Decirle al cliente especifico esta mal
+                                        *     x Esperar experto o nueva palabra
+                                        *     x Si experto:
+                                        *       . Enviar palabra a experto
+                                        *       . Esperar validacion
+                                        *       . Si correcta:
+                                        *         * Enviar correcta a cliente
+                                        *         * Modificar matriz local
+                                        *         * Broadcast de la matriz modificada
+                                        *       . Si incorrecta:
+                                        *         * Notificar fallida absoluta
+                                        *         * Volver al inicio
+                                        *     x Si repetir:
+                                        *       . Volver al inicio
+                                        * */
+//                                       readFromClient();
+                                    }
+
                                 }
                             }else{
                                 sendToClient(sd,"rejected");
@@ -197,6 +359,40 @@ int server::run() {
                 }
             }
         }
+}
+
+void server::asignar(Player *player, int n, Juego juego) {
+    juego.asignarFichas(n, player);
+    cout << "Envio addf" << endl;
+    sendToClient(player->getClient(), "addF");
+    readFromClient(player->getClient(), buffer);
+    FichaToSend ficha_send[7];
+    for(int i=0;i<player->getFichas().getSize();i++){
+        Ficha *ficha = player->getFichas().findData(i)->getData();
+        ficha_send[i] = FichaToSend(ficha->getLetra(), ficha->getPosX(), ficha->getPosY());
+    }
+    string message = JsonParser::toJson(ficha_send, 7);
+    cout << message << endl << flush;
+    //usleep(1000000);
+    sendToClient(player->getClient(), message.c_str());
+    readFromClient(player->getClient(), buffer);   // Fin de la orden
+}
+
+void server::asignarF(Player *player, Juego juego){
+    juego.asignarF(player);
+    cout << "Envio addf" << endl;
+    sendToClient(player->getClient(), "addF");
+    readFromClient(player->getClient(), buffer);
+    FichaToSend ficha_send[7];
+    for(int i=0;i<player->getFichas().getSize();i++){
+        Ficha *ficha = player->getFichas().findData(i)->getData();
+        ficha_send[i] = FichaToSend(ficha->getLetra(), ficha->getPosX(), ficha->getPosY());
+    }
+    string message = JsonParser::toJson(ficha_send, 7);
+    cout << message << endl << flush;
+    //usleep(1000000);
+    sendToClient(player->getClient(), message.c_str());
+    readFromClient(player->getClient(), buffer);   // Fin de la orden
 }
 
 int server::sendToClient(int server_fd, const char* mensaje) {
@@ -211,11 +407,17 @@ int server::readFromClient(int client_fd, char* buffer) {
     return valread;
 }
 
-int server::broadcoast(int client_socket[5], char * mensaje){
+void server::broadcoast(int client_socket[5], char * mensaje){
     for(int i = 0; i<5; i++){
         if (client_socket[i]!=0){
             send(client_socket[i],mensaje,strlen(mensaje),0);
         }
+    }
+}
+
+void server::broadcoast(list<Player*> players, const char *mensaje) {
+    for(Player *player:players){
+        sendToClient(player->getClient(), mensaje);
     }
 }
 

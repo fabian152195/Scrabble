@@ -7,6 +7,7 @@
 class Ficha : public QRect
 {
 public:
+    Ficha(){}
     Ficha(QChar letra, QPoint pos);
     Ficha(QString letra, QPoint pos);
     QString getLetra();

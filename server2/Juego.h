@@ -90,11 +90,20 @@ public:
      * */
     int calcPts(list<list<Ficha*>> palabras);
 
+    int getJugadorActivo();
+
+    void setJugadorActivo(int jugadorActivo);
+
+    void agregarFichas(Player *jugador, int n);
+
+    void asignarF(Player *jugador);
+
 private:
+    int jugador_activo;
     DoublyLinkedList<DoublyLinkedList<Ficha*>> matriz_fichas;
-    ListaFichas saco_fichas;
+    ListaFichas* saco_fichas;
     TXT_Manager* buscador = new TXT_Manager();
-    list<Player> *jugadores = jugadores;
+    list<Player*> jugadores = jugadores;
 };
 
 

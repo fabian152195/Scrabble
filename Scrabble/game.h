@@ -7,6 +7,7 @@
 #include "ficha.h"
 #include "list.h"
 #include <QThread>
+#include "listener.h"
 
 using namespace std;
 
@@ -21,7 +22,6 @@ class Game : public QDialog
     Q_OBJECT
 
 public:
-    QThread *listener = new QThread();
     /**
      * Tengo que crear las 15x15 casillas en cada lugar correspondiente en el builder
     */
@@ -50,11 +50,18 @@ public:
 
 private slots:
     void on_label_2_clicked();
+    void addFichas(list<Ficha> fichas);
+    void modTurn(bool turn);
+    void confirmacionPalabra(bool valid);
+    void addPuntaje(int puntos);
+    void updateM(list<Ficha> fichas);
+signals:
+    void startListen();
 
 private:
     Tablero *tablero; /** Widget del tablero donde se van a poner las fichas*/
     Ui::Game *ui;
-    bool my_turn = false;
+    bool *my_turn = new bool;
     QString player_name;
     int player_points;
     int remaining;
@@ -63,6 +70,7 @@ private:
 
     bool sendServer(); /** Funcion que envia al server */
     bool sendServer(QString word);
+    QThread *listen;
 };
 
 

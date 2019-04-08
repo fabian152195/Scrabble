@@ -99,11 +99,14 @@ int TXT_Manager::verif_palabra(string palabra) {
 }
 
 bool TXT_Manager::busqueda(string cadena) {
-    ifstream fe("Diccionario.txt");
+    ifstream fe;
+    fe.open("/home/kevin/Documentos/Proyectos/1/server2/Diccionario.txt");
+    cout<<fe.is_open()<<flush<<endl;
     string *a = new string();
+    //cout<<*a;
     while(!fe.eof()){
         fe >> *a;
-        //cout << *a << "\n"; // esta linea imprime todo el diccionario hasta que encuentra la palabra
+       // cout << *a << "\n"; // esta linea imprime todo el diccionario hasta que encuentra la palabra
         if(*a==cadena) {
             cout << "Coincidencia:" << *a << "\n";
             fe.close();

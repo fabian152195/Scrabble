@@ -13,7 +13,7 @@ class Tablero : public QWidget
     Q_OBJECT
 
 public:
-    explicit Tablero(QWidget *parent=nullptr);
+    explicit Tablero(bool *turn, QWidget *parent=nullptr);
     static list<Ficha> toDraw;
     static list<Ficha> toErase;
 protected:
@@ -23,6 +23,8 @@ protected:
     void dragMoveEvent(QDragMoveEvent *event) Q_DECL_OVERRIDE;
     void dropEvent(QDropEvent *event) Q_DECL_OVERRIDE;
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+private:
+    bool *turn;
 };
 
 #endif // TABLERO_H

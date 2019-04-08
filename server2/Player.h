@@ -8,6 +8,7 @@
 #include <string>
 #include <list>
 #include "Ficha.h"
+#include "DoublyLinkedList.h"
 using namespace std;
 
 class Player {
@@ -30,18 +31,18 @@ public:
     void sumar(int pts);
     int getPuntaje();
     void setPuntaje(int puntaje);
-    list<Ficha*> getFichas();
+    DoublyLinkedList<Ficha*> getFichas();
     bool isTurno();
     void setTurno(bool turno);
 
-    void setFichas(list<Ficha *> &fichas);
+    void setFichas(DoublyLinkedList<Ficha *> &fichas);
 
 private:
     int puntaje; /** Puntaje del jugador */
-    list<Ficha*> fichas; /** Lista de fichas del jugador */
     bool turno;  /** Turno del jugador? */
     int client; /** Socket del jugador */
     string name; /** Nombre del jugador */
+    DoublyLinkedList<Ficha*> fichas; /** Lista de fichas del jugador*/
 };
 
 
