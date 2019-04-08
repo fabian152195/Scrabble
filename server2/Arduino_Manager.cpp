@@ -5,6 +5,9 @@
 #include "Arduino_Manager.h"
 
 using namespace std;
+/**
+ * Inicializa las variables necesarias para la comunicacion serial
+ */
 void Arduino_Manager::inicializar() {
 
     memset (&tty, 0, sizeof tty);
@@ -41,7 +44,10 @@ void Arduino_Manager::inicializar() {
         cout << "Error " << errno << " from tcsetattr" << endl;
     }
 }
-
+/**
+ * Lee lo que se recibe en el puerto serial
+ * @return char paran diferenciar la entrada que se obtuvo
+ */
 char Arduino_Manager::leer() {
     spot = 0;
 /*Whole response*/
@@ -64,7 +70,11 @@ char Arduino_Manager::leer() {
         return response[0];
     }
 }
-
+/**
+ * Envia datos al arduino a traves del puerto serial
+ * @param cmd array de caracteres que se reciben a traves del puerto serial
+ * @param size tamano del array cmd
+ */
 void Arduino_Manager::escribir(unsigned char* cmd, int size) {
     int n_written = 0,
             spot = 0;
@@ -74,7 +84,10 @@ void Arduino_Manager::escribir(unsigned char* cmd, int size) {
         spot += n_written;
         usleep(2000);
     }
-}
+} /**
+ * Envia una palabra al arduino para mostrarla en la pantalla LCD
+ * @param cadena palabra que se envia al arduino
+ */
 void Arduino_Manager::enviar_palabra(string cadena) {
     cadena += '.';
     unsigned char cadena1[cadena.size()];
@@ -84,6 +97,10 @@ void Arduino_Manager::enviar_palabra(string cadena) {
     escribir(cadena1, cadena.size());
     }
 
+    /**
+     * Recibe datos de los botones
+     * @return booleano para identificar el boton que se oprime
+     */
 bool Arduino_Manager::entrada() {
     char aux = this->leer();
     if (aux == '2') {
@@ -93,6 +110,11 @@ bool Arduino_Manager::entrada() {
         cout << "RETORNA VERDADERO" << endl;
     }
 }
+/**
+ * Metodo que muestra una palabra en la pantalla LCD y le permite al usuario aceptarla o rechazarla
+ * @param palabra palabra por mostrar en la pantalla LCD
+ * @return booleano que identifica el boton que se oprimio
+ */
 bool Arduino_Manager::verificar(string palabra){
         this->inicializar();
         this->enviar_palabra(palabra);
