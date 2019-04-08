@@ -31,6 +31,8 @@ add_executable(server2
         fichatosend.h
         jsonparser.cpp
         jsonparser.h
+        Arduino_Manager.cpp
+        Arduino_Manager.h
         )
 add_subdirectory(lib/googletest-master)
 

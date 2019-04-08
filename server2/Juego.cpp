@@ -56,7 +56,7 @@ void Juego::asignarF(Player *jugador) {
     while(n>0){
              switch(n){
                 case 3:
-                    choose="S";
+                    choose="_";
                     break;
                 case 2:
                     choose = "O";

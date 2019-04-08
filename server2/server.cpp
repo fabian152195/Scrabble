@@ -174,7 +174,7 @@ int server::run() {
                                 Player *new_player = new Player(sd, buffer);
                                 room->addPlayer(new_player);
                                 cout<<"Hay:"<<room->getPlayers().size()<<endl;
-                                if(room->getPlayers().size() == 2){
+                                if(room->getPlayers().size() == 4){
                                     //Empiece el juego hp
                                     cout<< "Ya";
                                     for(Player *player : room->getPlayers()){
@@ -366,8 +366,10 @@ int server::run() {
                                             readFromClient(current_client, buffer);
                                             if(strncmp(buffer, "262144",7)!=0){
                                                 // Enviar al experto
-                                                bool experto = true;
+                                                Arduino_Manager arduino = Arduino_Manager();
+                                                bool experto = arduino.verificar(*principal);
                                                 if(experto && juego.valEjes(fichas_usadas)){
+                                                    list<Ficha*> nueva = list<Ficha*>();
                                                     sendToClient(current_client,"correcta");
                                                     //Agregar al diccionario
                                                 }else{

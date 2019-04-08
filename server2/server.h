@@ -26,6 +26,7 @@
 #include "jsonparser.h"
 #include "jsonparser.h"
 #include "DoublyLinkedList.h"
+#include "Arduino_Manager.h"
 
 #define TRUE   1
 #define FALSE  0
