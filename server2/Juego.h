@@ -19,7 +19,7 @@ public:
      * Constructor
      * @param jugadores Lista de jugadores
      * */
-    Juego(list<Player> jugadores);
+    Juego(list<Player*> jugadores);
 
     /**
      * Inicializador de matriz

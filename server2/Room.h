@@ -12,7 +12,7 @@ using namespace std;
 class Room {
 
 private:
-    list<Player> players = list<Player*>();  /** Jugador */
+    list<Player*> players = list<Player*>();  /** Jugador */
     int master_client;  /** Socket maestro */ // Para efectos de quien inicia la partida
     int code;  /** Codigo del jugador */
 public:

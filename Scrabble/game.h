@@ -55,6 +55,10 @@ private slots:
     void confirmacionPalabra(bool valid);
     void addPuntaje(int puntos);
     void updateM(list<Ficha> fichas);
+    void addFichasB(list<Ficha> fichas);
+    void on_Pasar_clicked();
+    void firstBad();
+
 signals:
     void startListen();
 

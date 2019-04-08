@@ -22,6 +22,8 @@ signals:
     void confirmacionPalabra(bool valid);
     void addPuntaje(int puntos);
     void updateM(list<Ficha> fichas);
+    void addFichasB(list<Ficha> fichas);
+    void firstBad();
 
 };
 

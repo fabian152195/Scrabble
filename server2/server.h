@@ -63,7 +63,7 @@ public:
      * @param client_socket Cinco clientes al que se quiere enviar el mensaje
      * @param mensaje Mensaje que se quiere enviar
      * */
-    int broadcoast(int client_socket[5], char * mensaje);
+    void broadcoast(int client_socket[5], char * mensaje);
     void broadcoast(list<Player*> players, const char *mensaje);
 
 private:

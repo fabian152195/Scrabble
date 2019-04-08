@@ -8,7 +8,6 @@
 using namespace std;
 
 server::server() {
-    opt=1;
 }
 
 int server::run() {
@@ -209,26 +208,54 @@ int server::run() {
                                     bool finished = false;
                                     int current_client;
                                     Player *current_player;
-                                    while(!finished){
+                                    bool new_turn = true;
+                                    while(!finished) {
                                         // Elijo a quien escuchar (al jugador activo)
-                                        int k =0;
-                                        for(Player *player:room->getPlayers()){
-                                            if(k==juego.getJugadorActivo()){
+                                        if (new_turn) {
+                                        int k = 0;
+                                        for (Player *player:room->getPlayers()) {
+                                            if (k == juego.getJugadorActivo()) {
                                                 current_client = player->getClient();
                                                 current_player = player;
                                             }
                                             k++;
                                         }
+                                        }else{
+                                            new_turn = true;
+                                        }
+
                                         // Recibo jugada
                                         readFromClient(current_client, buffer);  // Jugada
+                                        if (strncmp(buffer, ".", 2) == 0) {
+                                            // Pasar turno
+                                            juego.setJugadorActivo(1);
+                                            i = 0;
+                                            for (Player *player:room->getPlayers()) {
+                                                if (i == juego.getJugadorActivo()) {
+                                                    sendToClient(player->getClient(), "turn");
+                                                    readFromClient(player->getClient(), buffer);
+                                                    sendToClient(player->getClient(), "true");
+                                                    readFromClient(player->getClient(), buffer); // Fin de la orden
+                                                } else {
+                                                    sendToClient(player->getClient(), "turn");
+                                                    readFromClient(player->getClient(), buffer);
+                                                    sendToClient(player->getClient(), "false");
+                                                    readFromClient(player->getClient(), buffer); // Fin de la orden
+                                                }
+                                                i++;
+                                            }
+
+                                        } else {
                                         string jugada = buffer;
-                                        cout<<"Jugada:"<<buffer<<flush<<endl;
+                                        cout << "Jugada:" << buffer << flush << endl;
                                         list<FichaToSend> fichas_recibidas = JsonParser::toListFicha(buffer);
-                                        list<Ficha*> fichas_usadas;  // To do bien hasta aqui
-                                        for(FichaToSend ficha:fichas_recibidas){
-                                            for(int i=0; i<current_player->getFichas().getSize();i++){
-                                                Ficha *ficha_jugador = current_player->getFichas().findData(i)->getData();
-                                                if(strncmp(ficha.getLetra().c_str(),ficha_jugador->getLetra().c_str(), 3)==0){
+                                        list<Ficha *> fichas_usadas;  // To do bien hasta aqui
+                                        for (FichaToSend ficha:fichas_recibidas) {
+                                            for (int i = 0; i < current_player->getFichas().getSize(); i++) {
+                                                Ficha *ficha_jugador = current_player->getFichas().findData(
+                                                        i)->getData();
+                                                if (strncmp(ficha.getLetra().c_str(), ficha_jugador->getLetra().c_str(),
+                                                            3) == 0) {
                                                     ficha_jugador->setPosX(ficha.getX());
                                                     ficha_jugador->setPosY(ficha.getY());
                                                     fichas_usadas.push_back(ficha_jugador);
@@ -238,46 +265,49 @@ int server::run() {
 
                                         }
                                         int puntaje;
-                                        puntaje = juego.nuevaJugada(fichas_usadas); // Si es 0 la palabra es denegada, LISTO
-                                        if(puntaje!=0){
-                                            sendToClient(current_client,"valido");  // validacion
-                                            readFromClient(current_client,buffer);
-                                            current_player->setPuntaje(current_player->getPuntaje()+puntaje);
+                                        puntaje = juego.nuevaJugada(
+                                                fichas_usadas); // Si es 0 la palabra es denegada
+                                        if (puntaje != 0) {
+                                            sendToClient(current_client, "valido");  // validacion
+                                            readFromClient(current_client, buffer);
+                                            current_player->setPuntaje(current_player->getPuntaje() + puntaje);
                                             // Asignar puntaje al jugador actual
                                             sendToClient(current_client, "addP");
-                                            readFromClient(current_client,buffer);
+                                            readFromClient(current_client, buffer);
                                             sendToClient(current_client, to_string(puntaje).c_str());
 
                                             // Enviar array nuevas a todos los jugadores, dejarlo de ultimo
                                             broadcoast(room->getPlayers(), "updateM");
                                             usleep(10000);
-                                            broadcoast(room->getPlayers(),jugada.c_str());
+                                            broadcoast(room->getPlayers(), jugada.c_str());
                                             //Quitar las fichas usadas al jugador actual
-                                           /* for(FichaToSend ficha:fichas_recibidas){
-                                                std::list<Ficha*>::iterator i = current_player->getFichas().begin();
-                                                while (i != current_player->getFichas().end())
-                                                {
-                                                    if (strncmp((**i).getLetra().c_str(), ficha.getLetra().c_str(), 3)==0)
-                                                    {
-                                                        current_player->getFichas().erase(i++);  // alternatively, i = items.erase(i);
-                                                        break;
-                                                    }
-                                                    else
-                                                    {
-                                                        ++i;
-                                                    }
-                                                }
-                                            }
-                                            */
-                                            DoublyLinkedList<Ficha *> nuev_ficha = DoublyLinkedList<Ficha*>();
+                                            /* for(FichaToSend ficha:fichas_recibidas){
+                                                 std::list<Ficha*>::iterator i = current_player->getFichas().begin();
+                                                 while (i != current_player->getFichas().end())
+                                                 {
+                                                     if (strncmp((**i).getLetra().c_str(), ficha.getLetra().c_str(), 3)==0)
+                                                     {
+                                                         current_player->getFichas().erase(i++);  // alternatively, i = items.erase(i);
+                                                         break;
+                                                     }
+                                                     else
+                                                     {
+                                                         ++i;
+                                                     }
+                                                 }
+                                             }
+                                             */
+                                            DoublyLinkedList<Ficha *> nuev_ficha = DoublyLinkedList<Ficha *>();
 
-                                            DoublyLinkedList<Ficha *> *cochinada = new DoublyLinkedList<Ficha*>();
+                                            DoublyLinkedList<Ficha *> *cochinada = new DoublyLinkedList<Ficha *>();
                                             *cochinada = current_player->getFichas();
 
-                                            for(int i=0;i<current_player->getFichas().getSize();i++){
-                                                Ficha *ficha_player = current_player->getFichas().findData(i)->getData();
-                                                for(FichaToSend ficha:fichas_recibidas){
-                                                    if(strncmp(ficha_player->getLetra().c_str(), ficha.getLetra().c_str(), 2)==0){
+                                            for (int i = 0; i < current_player->getFichas().getSize(); i++) {
+                                                Ficha *ficha_player = current_player->getFichas().findData(
+                                                        i)->getData();
+                                                for (FichaToSend ficha:fichas_recibidas) {
+                                                    if (strncmp(ficha_player->getLetra().c_str(),
+                                                                ficha.getLetra().c_str(), 2) == 0) {
                                                         cochinada->deleteDataByLetter(ficha_player->getLetra());
                                                         break;
                                                     }
@@ -287,30 +317,32 @@ int server::run() {
                                             current_player->setFichas(*cochinada);
                                             // Bien hasta aqui, tiene solo la cantidad de fichas que le quedan despues de usarlas
                                             // Darle mas fichas al jugador actual
-                                            sendToClient(current_client,"addF");
+                                            usleep(1000000);
+                                            sendToClient(current_client, "addFi");
                                             readFromClient(current_client, buffer);
-                                            juego.agregarFichas(current_player,fichas_recibidas.size());
+                                            juego.agregarFichas(current_player, fichas_recibidas.size());
                                             FichaToSend ficha_send[7];
-                                            i = 0;
-                                            for(int i=0;i<current_player->getFichas().getSize();i++){
+                                            for (int i = 0; i < current_player->getFichas().getSize(); i++) {
                                                 Ficha *ficha = current_player->getFichas().findData(i)->getData();
-                                                ficha_send[i] = FichaToSend(ficha->getLetra(), ficha->getPosX(), ficha->getPosY());
-                                                i++;
+                                                ficha_send[i] = FichaToSend(ficha->getLetra(), ficha->getPosX(),
+                                                                            ficha->getPosY());
                                             }
                                             string message = JsonParser::toJson(ficha_send, 7);
                                             cout << message << endl << flush;
                                             sendToClient(current_player->getClient(), message.c_str());
                                             readFromClient(current_player->getClient(), buffer);   // Fin de la orden
+
+
                                             // Pasar turno
                                             juego.setJugadorActivo(1);
-                                            i=0;
-                                            for(Player *player:room->getPlayers()){
-                                                if(i==juego.getJugadorActivo()){
+                                            i = 0;
+                                            for (Player *player:room->getPlayers()) {
+                                                if (i == juego.getJugadorActivo()) {
                                                     sendToClient(player->getClient(), "turn");
                                                     readFromClient(player->getClient(), buffer);
                                                     sendToClient(player->getClient(), "true");
                                                     readFromClient(player->getClient(), buffer); // Fin de la orden
-                                                }else{
+                                                } else {
                                                     sendToClient(player->getClient(), "turn");
                                                     readFromClient(player->getClient(), buffer);
                                                     sendToClient(player->getClient(), "false");
@@ -318,9 +350,28 @@ int server::run() {
                                                 }
                                                 i++;
                                             }
-                                        }else{
+                                        } else {
                                             // mensaje de error
+                                            sendToClient(current_client, "firstbad");
+                                            readFromClient(current_client, buffer);
+                                            if(strncmp(buffer, "experto",8)==0){
+                                                // Enviar al experto
+                                                bool experto = true;
+                                                if(experto){
+                                                    sendToClient(current_client,"correcta!");
+                                                    //Agregar al diccionario
+                                                }else{
+                                                    sendToClient(current_client, "repeat");
+                                                    readFromClient(current_client, buffer);
+                                                    new_turn = false;
+                                                }
+                                            }else{
+                                                sendToClient(current_client, "repeat");
+                                                readFromClient(current_client, buffer);
+                                                new_turn = false;
+                                            }
                                         }
+                                    }
 
                                         //break;  // comentar
                                        /*

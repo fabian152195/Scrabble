@@ -21,6 +21,16 @@ void Listener::listen(){
         }
         emit addFichas(fichas);
         Client::sendToServer("ping");
+    }else if(strncmp(Client::buffer,"addFi",6)==0){
+        Client::sendToServer("ping");
+        Client::readFromServer(Client::buffer);
+        list<FichaToSend> fichasS = JsonParser::toListFicha(Client::buffer);
+        list<Ficha> fichas = list<Ficha>();
+        for(FichaToSend ficha:fichasS){
+            fichas.push_back(Ficha(ficha.getLetra().c_str(), QPoint(ficha.getX(),ficha.getY())));
+        }
+        emit addFichasB(fichas);
+        Client::sendToServer("ping");
     }else if(strncmp(Client::buffer,"turn",5)==0){  // Orden turn
         cout<<"turn order"<<flush<<endl;
         Client::sendToServer("ping");
@@ -44,6 +54,9 @@ void Listener::listen(){
             fichas.push_back(Ficha(ficha.getLetra().c_str(), QPoint(ficha.getX(),ficha.getY())));
         }
         emit updateM(fichas);
+    }else if(strncmp(Client::buffer, "firstbad",9)==0){
+        emit firstBad();
+
     }
     Client::readFromServer(Client::buffer);
     }

@@ -29,6 +29,8 @@ Game::Game(QString name,QImage my_image,QWidget *parent):QDialog(parent), ui(new
     connect(listener, &Listener::addPuntaje, this, &Game::addPuntaje);
     connect(listener, &Listener::confirmacionPalabra, this, &Game::confirmacionPalabra);
     connect(listener, &Listener::updateM, this, &Game::updateM);
+    connect(listener, &Listener::addFichasB, this, &Game::addFichasB);
+    connect(listener, &Listener::firstBad, this, &Game::firstBad);
 
     listen->start();  //Inicia el hilo
     emit startListen();
@@ -40,7 +42,7 @@ Game::Game(QString name,QImage my_image,QWidget *parent):QDialog(parent), ui(new
 
     // Mano
     mano = new ListaMano(this);
-    mano->setGeometry(250,530,321,50);
+    mano->setGeometry(200,520,431,50);
 
     //Tablero
     tablero = new Tablero(my_turn, this);
@@ -53,11 +55,23 @@ Game::~Game(){
     delete mano;
 }
 
+void Game::firstBad(){
+    int question = QMessageBox::critical(this, "Palabra invalida", "La palabra que ingreso no esta registrada "
+                                                       "¿desea validarla con un experto?"
+                             , QMessageBox::Ok, QMessageBox::Abort);
+    cout<<question<<flush<<endl;
+
+}
+
 void Game::modTurn(bool turn){
     cout<<"Changing turn"<<flush<<endl;
     *my_turn = turn;
 }
 
+void Game::addFichasB(list<Ficha> fichas){
+    mano->clear();
+    this->addFichas(fichas);
+}
 
 void Game::update(){
     //Server shit
@@ -190,3 +204,10 @@ Plan:
       la agrego o la quito del array nuevas letras
     - Limpiar el array cada vez que recibo respuesta del server
 */
+
+void Game::on_Pasar_clicked()
+{
+
+    Client::sendToServer(".");
+
+}
