@@ -11,6 +11,11 @@ using namespace std;
 class Ficha {
 public:
     Ficha();
+
+    /** Constructor
+     * @param lttr Letra
+     * @param val valor de la letra
+     * */
     Ficha(string lttr, int val);
     const string &getLetra() const;
     int getValor() const;
@@ -30,12 +35,12 @@ public:
     void setMult_ltr(int mult_ltr);
 
 private:
-    string letra;
-    int valor;
-    int mult_pal;
-    int mult_ltr;
-    int posX;
-    int posY;
+    string letra;  /** Letra asignada */
+    int valor;  /** Valor de la letra */
+    int mult_pal; /** Multiplicador de palabra de la posicion en la letra */
+    int mult_ltr; /** Multiplicador de letra de la posicion en la que esta la ficha */
+    int posX; /** Posicion en x de la ficha */
+    int posY; /** Posicion en y de la ficha */
 };
 
 

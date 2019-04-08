@@ -16,6 +16,10 @@ public:
         mult_ltr=1;
     };
 
+    /**
+     * Contructor
+     * @param valor Valor del nodo
+     * */
     Node(T valor){
         data=valor;
         next= nullptr;
@@ -63,11 +67,11 @@ public:
     }
 
 private:
-    T data;
-    Node<T>* next;
-    Node<T>* prev;
-    int mult_pal;
-    int mult_ltr;
+    T data;  /** Dato del nodo*/
+    Node<T>* next;  /** Puntero al siguiente nodo */
+    Node<T>* prev;  /** Puntero al nodo anterior */
+    int mult_pal; /** Multiplicador de  palabra */
+    int mult_ltr;  /** Multiplicador de letra */
 };
 
 
