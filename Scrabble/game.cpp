@@ -31,6 +31,8 @@ Game::Game(QString name,QImage my_image,QWidget *parent):QDialog(parent), ui(new
     connect(listener, &Listener::updateM, this, &Game::updateM);
     connect(listener, &Listener::addFichasB, this, &Game::addFichasB);
     connect(listener, &Listener::firstBad, this, &Game::firstBad);
+    connect(listener, &Listener::correcta, this, &Game::correcta);
+    connect(listener, &Listener::repeat, this, &Game::repeat);
 
     listen->start();  //Inicia el hilo
     emit startListen();
@@ -56,10 +58,13 @@ Game::~Game(){
 }
 
 void Game::firstBad(){
+    // 262144 : Abort
+    // 1024: Accept
     int question = QMessageBox::critical(this, "Palabra invalida", "La palabra que ingreso no esta registrada "
                                                        "¿desea validarla con un experto?"
                              , QMessageBox::Ok, QMessageBox::Abort);
     cout<<question<<flush<<endl;
+    Client::sendToServer(to_string(question).c_str());
 
 }
 
@@ -116,6 +121,25 @@ void Game::updateM(list<Ficha> fichas){
         Tablero::toDraw.push_back(ficha);
     }
     tablero->update();
+}
+
+void Game::correcta(){
+    QMessageBox *success = new QMessageBox(this);
+    success->setText("Su palabra ha sido aceptada!");
+    success->show();
+}
+
+void Game::repeat(){
+    //rechazo
+           for(Ficha ficha:nuevas){
+               if(ficha.getJoker()){
+                   mano->addFicha(QPoint(0,0),"_");
+               }else{
+                   mano->addFicha(QPoint(0,0), ficha.getLetra());
+               }
+           }
+           nuevas.clear(tablero);
+
 }
 
 void Game::confirmacionPalabra(bool valid){

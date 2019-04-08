@@ -56,7 +56,10 @@ void Listener::listen(){
         emit updateM(fichas);
     }else if(strncmp(Client::buffer, "firstbad",9)==0){
         emit firstBad();
-
+    }else if(strncmp(Client::buffer, "correcta",9)==0){
+        emit correcta();
+    }else if(strncmp(Client::buffer,"repeat",7)==0){
+        emit repeat();
     }
     Client::readFromServer(Client::buffer);
     }

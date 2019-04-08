@@ -265,8 +265,10 @@ int server::run() {
 
                                         }
                                         int puntaje;
+                                        string *principal = new string;
+                                        *principal = "";
                                         puntaje = juego.nuevaJugada(
-                                                fichas_usadas); // Si es 0 la palabra es denegada
+                                                fichas_usadas, principal); // Si es 0 la palabra es denegada
                                         if (puntaje != 0) {
                                             sendToClient(current_client, "valido");  // validacion
                                             readFromClient(current_client, buffer);
@@ -354,11 +356,11 @@ int server::run() {
                                             // mensaje de error
                                             sendToClient(current_client, "firstbad");
                                             readFromClient(current_client, buffer);
-                                            if(strncmp(buffer, "experto",8)==0){
+                                            if(strncmp(buffer, "262144",7)!=0){
                                                 // Enviar al experto
                                                 bool experto = true;
-                                                if(experto){
-                                                    sendToClient(current_client,"correcta!");
+                                                if(experto && juego.valEjes(fichas_usadas)){
+                                                    sendToClient(current_client,"correcta");
                                                     //Agregar al diccionario
                                                 }else{
                                                     sendToClient(current_client, "repeat");

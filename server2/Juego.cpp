@@ -91,7 +91,7 @@ void Juego::asignarF(Player *jugador) {
 
 //            ____________
 //___________/Nueva jugada
-int Juego::nuevaJugada(list<Ficha*> jugada) {
+int Juego::nuevaJugada(list<Ficha*> jugada, string *principal) {
     int eje = valEjes(jugada);
     if(eje>0){
         Ficha* prim_ficha = primerFicha(jugada, eje);
@@ -321,6 +321,7 @@ list<list<Ficha*>> Juego::identificacion(list<Ficha*> fichas, Ficha* primFicha, 
     else if(eje==3){
         list<Ficha *> palabra;
         Node<Ficha *> *nod_ref = matriz_fichas.findData(primFicha->getPosX())->getData().findData(primFicha->getPosY());
+        Node<Ficha*> *tmp;
         tmp=nod_ref;
         //____Determina la palabra vertical____
         //Ubico el nodo mas superior a partir de primFicha
@@ -336,7 +337,7 @@ list<list<Ficha*>> Juego::identificacion(list<Ficha*> fichas, Ficha* primFicha, 
             palabras_formadas.push_back(palabra);
         }
         tmp=nod_ref;
-        list<Ficha *> palabra;
+        list<Ficha *> palabra_x;
         //____Determina la palabra horizontal____
         //Ubico el nodo mas a la izq de nod_ref
         while (matriz_fichas.findData(tmp->getData()->getPosX() - 1) != nullptr && matriz_fichas.findData(tmp->getData()->getPosX() - 1)->getData().findData(tmp->getData()->getPosY())->getData() != nullptr){
@@ -355,7 +356,7 @@ list<list<Ficha*>> Juego::identificacion(list<Ficha*> fichas, Ficha* primFicha, 
 
         }
         if(palabra.size()>1){
-            palabras_formadas.push_back(palabra);
+            palabras_formadas.push_back(palabra_x);
         }
         return palabras_formadas;
     }
@@ -389,8 +390,8 @@ bool Juego::valPalabras(list<string> palabras) {
             res=false;
             break;
         }
-        return res;
     }
+    return res;
 }
 
 
@@ -417,7 +418,7 @@ int Juego::calcPts(list<list<Ficha*>> palabras) {
 
 //            ___________________________________
 //___________/Revierte ubicacion fichas en matriz
-void Juego::revertPosFichas(list<list<Ficha *>> fichas) {
+void Juego::revertPosFichas(list<Ficha *> fichas) {
     while (!fichas.empty()) {
         Ficha *ficha_rechazada = fichas.front();
         matriz_fichas.findData(ficha_rechazada->getPosX())->getData().findData(ficha_rechazada->getPosY())->setData(

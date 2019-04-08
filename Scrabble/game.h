@@ -58,6 +58,8 @@ private slots:
     void addFichasB(list<Ficha> fichas);
     void on_Pasar_clicked();
     void firstBad();
+    void correcta();
+    void repeat();
 
 signals:
     void startListen();

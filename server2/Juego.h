@@ -43,7 +43,7 @@ public:
      * Ejecuta todas las funciones necesarias para hacer una nueva jugada
      * @param Cantidad de puntos obtenidos en la jugada
      * */
-    int nuevaJugada(list<Ficha*> jugada);        //funcion de nueva jugada
+    int nuevaJugada(list<Ficha*> jugada, string *principal);        //funcion de nueva jugada
 
     /**
      * Determina el eje en el que se puso las fichas o si no estan puestas en uno mismo
@@ -94,7 +94,7 @@ public:
     * Revierte el posicionamiento en la matriz de fichas
     * @param fichas matriz de fichas
     * */
-    void revertPosFichas(list<list<Ficha*>> fichas);
+    void revertPosFichas(list<Ficha*> fichas);
 
     int getJugadorActivo();
 
