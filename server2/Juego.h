@@ -90,6 +90,12 @@ public:
      * */
     int calcPts(list<list<Ficha*>> palabras);
 
+    /**
+    * Revierte el posicionamiento en la matriz de fichas
+    * @param fichas matriz de fichas
+    * */
+    void revertPosFichas(list<list<Ficha*>> fichas);
+
     int getJugadorActivo();
 
     void setJugadorActivo(int jugadorActivo);

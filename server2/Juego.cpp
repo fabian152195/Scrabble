@@ -220,7 +220,7 @@ Ficha* Juego::primerFicha(list<Ficha*> fichas, int eje) {       //Determina la p
     return primFicha;
 }
 
-//            _______CHINOOOO____________________
+//            ___________________________
 //___________/Identificacion de palabras               SE PUEDE CAMBIAR PRIMFICHA A UN X y UN Y
 list<list<Ficha*>> Juego::identificacion(list<Ficha*> fichas, Ficha* primFicha, int eje) {      //identifica todas las palabras que debe validar
     posicionarFichas(fichas);
@@ -239,7 +239,9 @@ list<list<Ficha*>> Juego::identificacion(list<Ficha*> fichas, Ficha* primFicha, 
             palabra.push_back(tmp->getData());
             tmp = tmp->getNext();
         }
-        palabras_formadas.push_back(palabra);
+        if(palabra.size()>1){
+            palabras_formadas.push_back(palabra);
+        }
         tmp = nod_ref;
         //____Identifica palabras en el eje contrario___
         //Recorro de abajo hasta arriba
@@ -261,12 +263,14 @@ list<list<Ficha*>> Juego::identificacion(list<Ficha*> fichas, Ficha* primFicha, 
                 }
 
             }
-            palabras_formadas.push_back(palabra);
+            if(palabra.size()>1){
+                palabras_formadas.push_back(palabra);
+            }
             nod_ref = nod_ref->getNext();                              //nod_ref cambia a la siguiente letra de la hilera principal y vuelve a empezar
             tmp = nod_ref;
         }
         return palabras_formadas;
-    } else{
+    } else if(eje==1){
         list<Ficha *> palabra;
         Node<Ficha *> *nod_ref = matriz_fichas.findData(primFicha->getPosX())->getData().findData(primFicha->getPosY());
         //___Determina la palabra principal___
@@ -287,7 +291,9 @@ list<list<Ficha*>> Juego::identificacion(list<Ficha*> fichas, Ficha* primFicha, 
                 break;
             }
         }
-        palabras_formadas.push_back(palabra);
+        if(palabra.size()>1){
+            palabras_formadas.push_back(palabra);
+        }
         tmp=nod_ref;
         //___Determina las palabras en el eje contrario___
         while(matriz_fichas.findData(tmp->getData()->getPosX()) != nullptr && matriz_fichas.findData(tmp->getData()->getPosX())->getData().findData(tmp->getData()->getPosY())->getData() != nullptr){
@@ -301,12 +307,55 @@ list<list<Ficha*>> Juego::identificacion(list<Ficha*> fichas, Ficha* primFicha, 
                 palabra.push_back(tmp->getData());
                 tmp=tmp->getNext();
             }
-            palabras_formadas.push_back(palabra);
+            if(palabra.size()>1){
+                palabras_formadas.push_back(palabra);
+            }
             nod_ref=matriz_fichas.findData(nod_ref->getData()->getPosX() + 1)->getData().findData(nod_ref->getData()->getPosY());
             tmp=nod_ref;
             if(tmp->getData()== nullptr){
                 break;
             }
+        }
+        return palabras_formadas;
+    }
+    else if(eje==3){
+        list<Ficha *> palabra;
+        Node<Ficha *> *nod_ref = matriz_fichas.findData(primFicha->getPosX())->getData().findData(primFicha->getPosY());
+        tmp=nod_ref;
+        //____Determina la palabra vertical____
+        //Ubico el nodo mas superior a partir de primFicha
+        while (tmp->getPrev()!= nullptr && tmp->getPrev()->getData() !=nullptr) {
+            tmp = tmp->getPrev();
+        }
+        //Recorro de arriba hasta el ultimo nodo de abajo
+        while (tmp!=nullptr && tmp->getData() !=nullptr) {
+            palabra.push_back(tmp->getData());
+            tmp = tmp->getNext();
+        }
+        if(palabra.size()>1){
+            palabras_formadas.push_back(palabra);
+        }
+        tmp=nod_ref;
+        list<Ficha *> palabra;
+        //____Determina la palabra horizontal____
+        //Ubico el nodo mas a la izq de nod_ref
+        while (matriz_fichas.findData(tmp->getData()->getPosX() - 1) != nullptr && matriz_fichas.findData(tmp->getData()->getPosX() - 1)->getData().findData(tmp->getData()->getPosY())->getData() != nullptr){
+            tmp = matriz_fichas.findData(tmp->getData()->getPosX() - 1)->getData().findData(tmp->getData()->getPosY());
+            if(tmp->getData()== nullptr){
+                break;
+            }
+        }
+        //Anado fichas a la palabra de izq a der
+        while (matriz_fichas.findData(tmp->getData()->getPosX()) != nullptr && matriz_fichas.findData(tmp->getData()->getPosX())->getData().findData(tmp->getData()->getPosY()) !=nullptr){
+            palabra.push_back(tmp->getData());
+            tmp = matriz_fichas.findData(tmp->getData()->getPosX() + 1)->getData().findData(tmp->getData()->getPosY());
+            if(tmp->getData()== nullptr){
+                break;
+            }
+
+        }
+        if(palabra.size()>1){
+            palabras_formadas.push_back(palabra);
         }
         return palabras_formadas;
     }
@@ -361,8 +410,20 @@ int Juego::calcPts(list<list<Ficha*>> palabras) {
             palabra.pop_front();
         }
         puntaje+=pts_temp*multiplicador;
-      // CHINO  puntaje+=(pts_temp*palabra.front()->getMult_pal())
     palabras.pop_front();
     }
     return puntaje;
+}
+
+//            ___________________________________
+//___________/Revierte ubicacion fichas en matriz
+void Juego::revertPosFichas(list<list<Ficha *>> fichas) {
+    while (!fichas.empty()) {
+        Ficha *ficha_rechazada = fichas.front();
+        matriz_fichas.findData(ficha_rechazada->getPosX())->getData().findData(ficha_rechazada->getPosY())->setData(
+                nullptr);
+        ficha_rechazada->setMult_pal(1);
+        ficha_rechazada->setMult_ltr(1);
+        fichas.pop_front();
+    }
 }
