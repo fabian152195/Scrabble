@@ -1,0 +1,44 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/Users/FabianCrawford/CLionProjects/connection/server.cpp
+server.h
+/Users/FabianCrawford/CLionProjects/connection/server.h
+
+/Users/FabianCrawford/CLionProjects/connection/server.h
+stdio.h
+-
+sys/socket.h
+-
+stdlib.h
+-
+netinet/in.h
+-
+string.h
+-
+iostream
+-
+unistd.h
+-
+arpa/inet.h
+-
+errno.h
+-
+sys/types.h
+-
+sys/socket.h
+-
+netinet/in.h
+-
+sys/time.h
+-
+cstdlib
+-
+iostream
+-
+
