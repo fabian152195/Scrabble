@@ -63,6 +63,7 @@ void Listener::listen(){
     }
     Client::readFromServer(Client::buffer);
     }
+    emit final();
 
 }
 

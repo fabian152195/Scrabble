@@ -33,6 +33,7 @@ Game::Game(QString name,QImage my_image,QWidget *parent):QDialog(parent), ui(new
     connect(listener, &Listener::firstBad, this, &Game::firstBad);
     connect(listener, &Listener::correcta, this, &Game::correcta);
     connect(listener, &Listener::repeat, this, &Game::repeat);
+    connect(listener, &Listener::final, this, &Game::final);
 
     listen->start();  //Inicia el hilo
     emit startListen();
@@ -126,6 +127,12 @@ void Game::updateM(list<Ficha> fichas){
 void Game::correcta(){
     QMessageBox *success = new QMessageBox(this);
     success->setText("Su palabra ha sido aceptada!");
+    success->show();
+}
+
+void Game::final(){
+    QMessageBox *success = new QMessageBox(this);
+    success->setText("El juego ha terminado!");
     success->show();
 }
 

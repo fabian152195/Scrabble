@@ -30,6 +30,22 @@ FichaToSend JsonParser::toFicha(const char input[]){
     for(int i=0;i<sizeof(input);i++){
         if(input[i] == '{'){
             i+=8;
+            string a = string(1, input[i]);
+            if(strncmp(a.c_str(),"LL",3)==0){
+             newFicha.setLetra("$"); // Poniendo letra
+            }else if(strncmp(a.c_str(),"Ñ",2)==0){
+                newFicha.setLetra("#"); // Poniendo letra
+
+            }else if(strncmp(a.c_str(),"RR",3)==0){
+                newFicha.setLetra("!"); // Poniendo letra
+
+            }else if(strncmp(a.c_str(),"CH",3)==0){
+               newFicha.setLetra("%"); // Poniendo letra
+
+            }else{
+              newFicha.setLetra(string(1,input[i])); // Poniendo letra
+
+            }
             newFicha.setLetra(string(1,input[i])); // Poniendo letra
             qDebug() << input[i];
             i+=5; //i = primer numero de x

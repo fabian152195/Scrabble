@@ -209,6 +209,7 @@ int server::run() {
                                     int current_client;
                                     Player *current_player;
                                     bool new_turn = true;
+                                    int pass = 0;
                                     while(!finished) {
                                         // Elijo a quien escuchar (al jugador activo)
                                         if (new_turn) {
@@ -218,15 +219,21 @@ int server::run() {
                                                 current_client = player->getClient();
                                                 current_player = player;
                                             }
-                                            k++;
+                                            k = (k+1)%4;
                                         }
                                         }else{
                                             new_turn = true;
                                         }
-
                                         // Recibo jugada
+                                        usleep(1000000);
                                         readFromClient(current_client, buffer);  // Jugada
+                                        cout<<pass<<flush<<endl;
+                                        if(pass==4){
+                                            finished = true;
+                                            break;
+                                        }
                                         if (strncmp(buffer, ".", 2) == 0) {
+                                            pass++;
                                             // Pasar turno
                                             juego.setJugadorActivo(1);
                                             i = 0;
@@ -246,6 +253,7 @@ int server::run() {
                                             }
 
                                         } else {
+                                            pass = 0;
                                         string jugada = buffer;
                                         cout << "Jugada:" << buffer << flush << endl;
                                         list<FichaToSend> fichas_recibidas = JsonParser::toListFicha(buffer);
@@ -402,6 +410,7 @@ int server::run() {
                                         * */
 //                                       readFromClient();
                                     }
+                                    broadcoast(room->getPlayers(),"finish");
 
                                 }
                             }else{

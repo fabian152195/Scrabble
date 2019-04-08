@@ -60,7 +60,7 @@ private slots:
     void firstBad();
     void correcta();
     void repeat();
-
+    void final();
 signals:
     void startListen();
 

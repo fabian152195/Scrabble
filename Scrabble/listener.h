@@ -26,6 +26,7 @@ signals:
     void addFichasB(list<Ficha> fichas);
     void firstBad();
     void repeat();
+    void final();
 
 };
 

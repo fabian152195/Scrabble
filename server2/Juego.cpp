@@ -97,6 +97,7 @@ int Juego::nuevaJugada(list<Ficha*> jugada, string *principal) {
         Ficha* prim_ficha = primerFicha(jugada, eje);
         list<list<Ficha*>> palabras_fichas =identificacion(jugada, prim_ficha, eje);
         list<string> palabras = strCreator(palabras_fichas);
+        *principal = palabras.front();
         if(valPalabras(palabras)){
             int puntaje = calcPts(palabras_fichas);
             return puntaje;
