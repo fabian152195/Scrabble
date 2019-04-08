@@ -11,6 +11,10 @@ class Jugador {
 public:
     Jugador();
 
+    /**
+     * Suma puntos a un jugador
+     * @param pts
+     * */
     void sumar(int pts);
 
     const string &getNombre() const;
@@ -23,15 +27,19 @@ public:
 
     Ficha *getFichas();
 
+    /**
+     * Retorna si es mi turno
+     * @return Booleano si es mi turno
+     * */
     bool isTurno();
 
     void setTurno(bool turno);
 
 private:
-    string Nombre;
-    int puntaje;
-    Ficha fichas[7];
-    bool turno;
+    string Nombre;  /** Nombre del jugador */
+    int puntaje;  /** Puntaje del jugador*/
+    Ficha fichas[7]; /** Fichas del jugador */
+    bool turno; /** Mi turno */
 };
 
 

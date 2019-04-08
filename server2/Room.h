@@ -1,3 +1,4 @@
+
 //
 // Created by kevin on 04/04/19.
 //
@@ -11,10 +12,14 @@ using namespace std;
 class Room {
 
 private:
-    list<Player> players = list<Player>();
-    int master_client;  // Para efectos de quien inicia la partida
-    int code;
+    list<Player> players = list<Player>();  /** Jugador */
+    int master_client;  /** Socket maestro */ // Para efectos de quien inicia la partida
+    int code;  /** Codigo del jugador */
 public:
+    /**
+     * Constructor
+     * @param code Codigo de la sala
+     * */
     explicit Room(int code);
     Room();
     void addPlayer(Player player);
